@@ -120,7 +120,7 @@ footer{background:#060810;padding:2rem}
     <div class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
     <span class="nav-name">DAY <span>ZERO</span></span>
   </div>
-  <button class="nav-cta" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Get Started</button>
+  <a href="/analyse" style="color:var(--mist);text-decoration:none;font-size:0.9rem;margin-right:1.5rem">Free Analyser</a><button class="nav-cta" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Request Pilot</button>
 </nav>
 <section class="hero">
   <div class="hero-bg"></div>
@@ -129,7 +129,7 @@ footer{background:#060810;padding:2rem}
     <h1 class="hero-headline">Every day is<br><em>Day Zero</em><br>of safety.</h1>
     <p class="hero-sub">Every brief is reviewed by our team of HSE experts — delivered to your team's WhatsApp every morning, with one real incident, its main root cause, and one main action that could save a life today.</p>
     <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Start Free Trial</button>
+      <button class="btn-primary" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Request a Pilot</button>
       <button class="btn-ghost" onclick="document.getElementById('sample').scrollIntoView({behavior:'smooth'})">See Today's Brief ↓</button>
     </div>
     <div class="hero-stats">
@@ -180,34 +180,13 @@ footer{background:#060810;padding:2rem}
   </div>
 </section>
 <section class="pricing-section" id="subscribe">
-  <div class="container">
-    <div class="section-label" style="color:var(--gold)">Pricing</div>
-    <h2 class="section-title" style="color:white;font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:0.75rem">Transparent. Simple. Scalable.</h2>
-    <p style="color:var(--mist);font-size:1rem;line-height:1.7">Annual contracts. Quarterly instalments available on Operations tier and above.</p>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <div class="plan-name">Field Contract</div>
-        <div class="plan-price">$3,000 <span>/ year</span></div>
-        <div class="plan-users">Up to 100 workers</div>
-        <ul class="plan-features"><li>Daily WhatsApp brief</li><li>Daily email delivery</li><li>PDF archive access</li><li>Admin dashboard</li></ul>
-        <button class="plan-btn">Get Started</button>
-      </div>
-      <div class="price-card featured">
-        <div class="feat-badge">Most Popular</div>
-        <div class="plan-name">Operations Contract</div>
-        <div class="plan-price">$9,600 <span>/ year</span></div>
-        <div class="plan-users">Up to 500 workers</div>
-        <ul class="plan-features"><li>Everything in Field</li><li>Friday voice note from our Chief Executive Officer</li><li>Sector-specific briefs</li><li>Monthly impact report</li><li>Compliance PDF exports</li></ul>
-        <button class="plan-btn">Get Started</button>
-      </div>
-      <div class="price-card">
-        <div class="plan-name">Corporate Contract</div>
-        <div class="plan-price">$24,000 <span>/ year</span></div>
-        <div class="plan-users">Unlimited workers</div>
-        <ul class="plan-features"><li>Everything in Operations</li><li>Custom company branding</li><li>Quarterly business review</li><li>Regulatory audit support</li><li>API access</li></ul>
-        <button class="plan-btn">Contact Us</button>
-      </div>
-    </div>
+  <div class="container" style="max-width:680px;text-align:center">
+    <div class="section-label" style="color:var(--gold)">Start Here</div>
+    <h2 class="section-title" style="color:white;font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:1rem">Begin with a free pilot.</h2>
+    <p style="color:var(--mist);font-size:1.05rem;line-height:1.8;margin-bottom:1rem">Every morning, your team receives one safety brief. One real incident. One root cause. One action that could save a life that day. Delivered to WhatsApp and email at 9AM.</p>
+    <p style="color:var(--mist);font-size:1.05rem;line-height:1.8;margin-bottom:2.5rem">Try it with your team at no cost. If it earns its place in your morning routine, we will talk about continuing. If it does not, you have lost nothing.</p>
+    <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request" class="btn-primary" style="display:inline-block;text-decoration:none">Request Your Free Pilot</a>
+    <p style="color:var(--mist);font-size:0.85rem;margin-top:1.5rem;opacity:0.7">Or write to us at team@dayzero.energy</p>
   </div>
 </section>
 <section class="curator-section">
