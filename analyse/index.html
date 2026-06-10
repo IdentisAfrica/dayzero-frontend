@@ -3,230 +3,366 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free instant incident root cause analysis powered by Day Zero HSE experts. Describe what happened and get probable root causes, contributing factors, and recommended actions in seconds.">
-<meta property="og:title" content="Free Incident Analyser — Day Zero">
+<meta name="description" content="Describe a workplace incident. Day Zero's HSE analysis framework identifies where to look — severity, probable causes, and the systemic failure behind what happened.">
+<meta property="og:title" content="Incident Intelligence — Day Zero">
 <meta property="og:url" content="https://dayzero.energy/analyse">
 <link rel="canonical" href="https://dayzero.energy/analyse">
-<title>Free Incident Analyser — Day Zero</title>
+<title>Incident Intelligence — Day Zero</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--ink:#0A0F1E;--red:#C42B1C;--gold:#D4A843;--mist:#8A9BB0;--cream:#F5F2ED;--white:#FFFFFF;--border:rgba(255,255,255,0.10)}
+:root{
+  --ink:#0A0F1E;
+  --ink2:#0E1528;
+  --red:#C42B1C;
+  --gold:#D4A843;
+  --mist:#8A9BB0;
+  --fog:#5A6F82;
+  --cream:#F5F2ED;
+  --white:#FFFFFF;
+  --green:#1A7A4A;
+  --border:rgba(255,255,255,0.08);
+  --border2:rgba(255,255,255,0.13);
+}
 html{scroll-behavior:smooth}
-body{font-family:'Barlow',sans-serif;background:var(--ink);color:var(--white);min-height:100vh}
-nav{padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+body{font-family:'Barlow',sans-serif;background:var(--ink);color:var(--white);min-height:100vh;line-height:1.6}
+
+/* NAV */
+nav{padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--ink);z-index:50}
 .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-mark{width:28px;height:28px;background:var(--red);border-radius:3px;display:flex;align-items:center;justify-content:center}
-.nav-mark svg{width:16px;height:16px;fill:white}
-.nav-name{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:0.07em;color:white}
+.nav-mark{width:28px;height:28px;background:var(--red);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-mark svg{width:14px;height:14px;fill:white}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:0.07em;color:white}
 .nav-name span{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.nav-link{color:var(--mist);text-decoration:none;font-size:13px;font-weight:500}
 .nav-cta{background:var(--red);color:white;border:none;padding:8px 18px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;cursor:pointer;text-transform:uppercase;text-decoration:none}
-.container{max-width:720px;margin:0 auto;padding:3rem 2rem}
-.hero-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:1rem}
-.hero-label span{width:6px;height:6px;background:var(--red);border-radius:50%;display:inline-block}
-h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;line-height:1.15;margin-bottom:1rem}
+
+/* LAYOUT */
+.container{max-width:680px;margin:0 auto;padding:4rem 2rem}
+
+/* HERO TEXT */
+.eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:1.25rem}
+.eyebrow::before{content:'';width:24px;height:1px;background:var(--red)}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:900;line-height:1.15;margin-bottom:1rem}
 h1 em{color:var(--gold);font-style:italic}
-.sub{font-size:1rem;color:var(--mist);line-height:1.7;margin-bottom:2.5rem;max-width:560px}
-.form-card{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:6px;padding:2rem}
-.field{margin-bottom:1.25rem}
-.field label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);margin-bottom:6px}
-.field input,.field textarea{width:100%;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:10px 14px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--white);resize:vertical}
-.field input:focus,.field textarea:focus{outline:none;border-color:rgba(196,43,28,0.5)}
-.field input::placeholder,.field textarea::placeholder{color:rgba(255,255,255,0.25)}
-.btn-analyse{width:100%;padding:14px;background:var(--red);color:white;border:none;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.intro{font-size:1rem;color:var(--mist);line-height:1.75;margin-bottom:2.5rem;max-width:540px}
+.intro strong{color:var(--white);font-weight:600}
+
+/* INCIDENT INPUT */
+.input-card{background:var(--ink2);border:1px solid var(--border2);border-radius:6px;padding:2rem;margin-bottom:2rem}
+.input-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--fog);display:block;margin-bottom:8px}
+textarea.incident-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:4px;padding:12px 14px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--white);resize:vertical;min-height:140px;line-height:1.6}
+textarea.incident-input:focus{outline:none;border-color:rgba(196,43,28,0.4)}
+textarea.incident-input::placeholder{color:rgba(255,255,255,0.2)}
+.char-hint{font-size:11px;color:var(--fog);margin-top:6px;text-align:right}
+.btn-analyse{width:100%;padding:14px;background:var(--red);color:white;border:none;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:1.25rem;transition:background 0.15s}
 .btn-analyse:hover{background:#9B1F12}
-.btn-analyse:disabled{opacity:0.5;cursor:not-allowed}
+.btn-analyse:disabled{opacity:0.45;cursor:not-allowed}
 .spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin 0.6s linear infinite;display:none}
 @keyframes spin{to{transform:rotate(360deg)}}
-.results{display:none;margin-top:2rem}
-.result-card{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:6px;padding:1.5rem;margin-bottom:1rem}
-.result-card h3{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem}
-.result-card.red h3{color:var(--red)}
-.result-card.gold h3{color:var(--gold)}
-.result-card.green h3{color:#1A7A4A}
-.result-card.blue h3{color:#378ADD}
-.result-item{border-left:3px solid var(--border);padding:8px 12px;margin-bottom:8px;border-radius:0 4px 4px 0}
-.result-card.red .result-item{border-color:var(--red);background:rgba(196,43,28,0.06)}
-.result-card.gold .result-item{border-color:var(--gold);background:rgba(212,168,67,0.06)}
-.result-card.green .result-item{border-color:#1A7A4A;background:rgba(26,122,74,0.06)}
-.result-card.blue .result-item{border-color:#378ADD;background:rgba(55,138,221,0.06)}
-.item-title{font-size:14px;font-weight:600;color:var(--white);margin-bottom:3px}
-.item-text{font-size:13px;color:var(--mist);line-height:1.6}
-.severity{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:1rem}
-.severity-critical{background:rgba(196,43,28,0.15);color:var(--red);border:1px solid rgba(196,43,28,0.3)}
-.severity-high{background:rgba(212,137,10,0.15);color:#D4890A;border:1px solid rgba(212,137,10,0.3)}
-.severity-medium{background:rgba(212,168,67,0.15);color:var(--gold);border:1px solid rgba(212,168,67,0.3)}
-.severity-low{background:rgba(26,122,74,0.15);color:#1A7A4A;border:1px solid rgba(26,122,74,0.3)}
-.recommendation{background:var(--ink);border:1px solid var(--border);border-radius:6px;padding:1.5rem;margin-top:1.5rem;border-left:3px solid var(--gold)}
-.recommendation h3{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.recommendation p{font-size:13px;color:var(--mist);line-height:1.7}
-.cta-section{margin-top:2.5rem;display:none}
-.cta-card{background:rgba(196,43,28,0.08);border:1px solid rgba(196,43,28,0.25);border-radius:6px;padding:1.75rem;text-align:center;margin-bottom:1rem}
-.cta-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:0.5rem}
-.cta-card p{font-size:13px;color:var(--mist);line-height:1.6;margin-bottom:1.25rem}
-.btn-review{background:var(--red);color:white;border:none;padding:12px 28px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer}
-.btn-subscribe{background:transparent;color:var(--gold);border:1px solid var(--gold);padding:12px 28px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block}
-.review-sent{display:none;text-align:center;padding:1.5rem;background:rgba(26,122,74,0.1);border:1px solid rgba(26,122,74,0.25);border-radius:6px}
-.review-sent p{color:#1A7A4A;font-size:14px;font-weight:500}
-footer{border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:12px;color:rgba(255,255,255,0.3);margin-top:3rem}
-footer a{color:var(--mist);text-decoration:none}
-@media(max-width:600px){.container{padding:2rem 1.25rem}.form-card{padding:1.25rem}}
+
+/* PARTIAL RESULT (free) */
+.partial-result{display:none;margin-bottom:2rem}
+.severity-row{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem}
+.sev-badge{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:6px 16px;border-radius:3px}
+.sev-critical{background:rgba(196,43,28,0.15);color:var(--red);border:1px solid rgba(196,43,28,0.3)}
+.sev-high{background:rgba(212,134,10,0.15);color:#D4890A;border:1px solid rgba(212,134,10,0.3)}
+.sev-medium{background:rgba(212,168,67,0.15);color:var(--gold);border:1px solid rgba(212,168,67,0.3)}
+.sev-low{background:rgba(26,122,74,0.15);color:var(--green);border:1px solid rgba(26,122,74,0.3)}
+.sev-label{font-size:13px;color:var(--mist)}
+.first-cause{background:var(--ink2);border:1px solid var(--border2);border-left:3px solid var(--red);border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin-bottom:1.5rem}
+.first-cause-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.first-cause-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px}
+.first-cause-text{font-size:13px;color:var(--mist);line-height:1.65}
+.gate-prompt{background:rgba(212,168,67,0.06);border:1px solid rgba(212,168,67,0.2);border-radius:6px;padding:1.5rem;text-align:center}
+.gate-prompt p{font-size:14px;color:var(--mist);line-height:1.7;margin-bottom:1.25rem}
+.gate-prompt strong{color:var(--white)}
+.gate-fields{display:flex;flex-direction:column;gap:10px;margin-bottom:1rem}
+.gate-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:4px;padding:10px 14px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--white)}
+.gate-input:focus{outline:none;border-color:rgba(212,168,67,0.4)}
+.gate-input::placeholder{color:rgba(255,255,255,0.2)}
+.btn-unlock{width:100%;padding:12px;background:var(--gold);color:var(--ink);border:none;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer}
+.btn-unlock:hover{background:#c49830}
+.gate-note{font-size:11px;color:var(--fog);margin-top:8px}
+
+/* FULL RESULT */
+.full-result{display:none}
+.result-section{margin-bottom:1.25rem}
+.result-section h3{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem}
+.result-section.causes h3{color:var(--red)}
+.result-section.factors h3{color:var(--gold)}
+.result-section.actions h3{color:var(--green)}
+.result-section.similar h3{color:#378ADD}
+.result-item{background:var(--ink2);border:1px solid var(--border);border-left:3px solid var(--border2);border-radius:0 4px 4px 0;padding:10px 14px;margin-bottom:8px}
+.result-section.causes .result-item{border-left-color:var(--red);background:rgba(196,43,28,0.05)}
+.result-section.factors .result-item{border-left-color:var(--gold);background:rgba(212,168,67,0.05)}
+.result-section.actions .result-item{border-left-color:var(--green);background:rgba(26,122,74,0.05)}
+.result-section.similar .result-item{border-left-color:#378ADD;background:rgba(55,138,221,0.05)}
+.item-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:3px}
+.item-text{font-size:12px;color:var(--mist);line-height:1.6}
+.recommendation-box{background:var(--ink2);border:1px solid var(--border2);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin-top:1.5rem;margin-bottom:2rem}
+.recommendation-box h3{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.recommendation-box p{font-size:13px;color:var(--mist);line-height:1.7}
+
+/* PILOT CTA */
+.pilot-cta{background:rgba(196,43,28,0.08);border:1px solid rgba(196,43,28,0.2);border-radius:6px;padding:2rem;text-align:center;display:none;margin-bottom:2rem}
+.pilot-cta h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:0.75rem;line-height:1.3}
+.pilot-cta p{font-size:13px;color:var(--mist);line-height:1.7;margin-bottom:1.5rem;max-width:440px;margin-left:auto;margin-right:auto}
+.btn-pilot{display:inline-block;background:var(--red);color:white;text-decoration:none;padding:13px 32px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase}
+.btn-pilot:hover{background:#9B1F12}
+
+/* REVIEW REQUEST */
+.review-sent{display:none;text-align:center;padding:1.25rem;background:rgba(26,122,74,0.08);border:1px solid rgba(26,122,74,0.2);border-radius:6px;margin-bottom:1rem}
+.review-sent p{color:var(--green);font-size:13px;font-weight:500}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;font-size:12px;color:rgba(255,255,255,0.25);margin-top:2rem}
+footer a{color:var(--fog);text-decoration:none}
+
+@media(max-width:600px){
+  .container{padding:2.5rem 1.25rem}
+  .input-card{padding:1.25rem}
+  nav{padding:1rem 1.25rem}
+}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="https://dayzero.energy" class="nav-brand">
-    <div class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
+    <div class="nav-mark">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+    </div>
     <span class="nav-name">DAY <span>ZERO</span></span>
   </a>
-  <a href="https://dayzero.energy/#subscribe" class="nav-cta">Subscribe</a>
+  <div class="nav-right">
+    <a href="https://dayzero.energy" class="nav-link">Home</a>
+    <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request" class="nav-cta">Request Pilot</a>
+  </div>
 </nav>
 
 <div class="container">
-  <div class="hero-label"><span></span>Free Incident Analysis Tool</div>
-  <h1>Describe what happened.<br><em>We analyse it instantly.</em></h1>
-  <p class="sub">Our AI-powered analyser identifies probable root causes, contributing factors, and recommended actions in seconds. Powered by the same expertise behind the Day Zero daily brief.</p>
+  <div class="eyebrow">Incident Intelligence</div>
+  <h1>Tell us what happened.<br><em>We show you where to look.</em></h1>
+  <p class="intro">Describe the incident. Our analysis framework — built on <strong>27 years of field HSE experience</strong> across P&G and TotalEnergies EP Nigeria — identifies the severity, the probable systemic failure, and what your team needs to know today.</p>
 
-  <div class="form-card">
-    <div class="field">
-      <label>Your work email</label>
-      <input type="email" id="email" placeholder="you@company.com" required>
-    </div>
-    <div class="field">
-      <label>Your name (optional)</label>
-      <input type="text" id="name" placeholder="e.g. Ahmed Ibrahim">
-    </div>
-    <div class="field">
-      <label>Company name (optional)</label>
-      <input type="text" id="company" placeholder="e.g. Seplat Energy">
-    </div>
-    <div class="field">
-      <label>Describe the incident</label>
-      <textarea id="description" rows="6" placeholder="What happened? Include details like location, activity being performed, equipment involved, and what went wrong. The more detail you provide, the more accurate the analysis."></textarea>
-    </div>
-    <button class="btn-analyse" id="analyse-btn" onclick="analyse()">
+  <div class="input-card">
+    <label class="input-label" for="incident-desc">Describe the incident</label>
+    <textarea class="incident-input" id="incident-desc" placeholder="What happened? Include the activity being performed, what went wrong, the equipment or system involved, and any known contributing circumstances. The more detail you provide, the sharper the analysis."></textarea>
+    <div class="char-hint" id="char-hint">0 characters</div>
+    <button class="btn-analyse" id="analyse-btn">
       <span id="btn-text">Analyse Incident</span>
       <div class="spinner" id="spinner"></div>
     </button>
   </div>
 
-  <div class="results" id="results">
-    <div id="severity-box"></div>
-    <div class="result-card red" id="root-causes"><h3>Probable Root Causes</h3><div id="root-list"></div></div>
-    <div class="result-card gold" id="factors"><h3>Contributing Factors</h3><div id="factor-list"></div></div>
-    <div class="result-card green" id="actions"><h3>Immediate Actions</h3><div id="action-list"></div></div>
-    <div class="result-card blue" id="similar"><h3>Similar Known Incidents</h3><div id="similar-list"></div></div>
-    <div class="recommendation" id="rec-box"><h3>Expert Recommendation</h3><p id="rec-text"></p></div>
+  <!-- PARTIAL RESULT: shown free, no email required -->
+  <div class="partial-result" id="partial-result">
+    <div class="severity-row">
+      <span class="sev-badge" id="sev-badge">Medium</span>
+      <span class="sev-label">Severity assessment</span>
+    </div>
+    <div class="first-cause" id="first-cause-box">
+      <div class="first-cause-label">Primary probable cause</div>
+      <div class="first-cause-title" id="first-cause-title"></div>
+      <div class="first-cause-text" id="first-cause-text"></div>
+    </div>
+
+    <!-- EMAIL GATE -->
+    <div class="gate-prompt" id="gate-prompt">
+      <p>This is one signal. The full analysis identifies <strong>all three root causes</strong>, contributing factors, immediate actions, similar incidents from our verified database, and a formal recommendation from our HSE team.</p>
+      <p style="margin-bottom:1.25rem">Enter your work email to see the complete picture.</p>
+      <div class="gate-fields">
+        <input type="email" class="gate-input" id="gate-email" placeholder="your@company.com">
+        <input type="text" class="gate-input" id="gate-name" placeholder="Your name (optional)">
+        <input type="text" class="gate-input" id="gate-company" placeholder="Company name (optional)">
+      </div>
+      <button class="btn-unlock" id="unlock-btn">See Full Analysis</button>
+      <p class="gate-note">No marketing. No spam. One email to show you what your team needs to know.</p>
+    </div>
   </div>
 
-  <div class="cta-section" id="cta-section">
-    <div class="cta-card">
-      <h3>Want a full expert review?</h3>
-      <p>Our team of HSE experts, headed by Engr. Ganiyu A. Shittu, will conduct a detailed review of your incident. Root cause verification, contributing factors, corrective actions, and a formal report delivered within 48 hours.</p>
-      <button class="btn-review" onclick="requestReview()">Request Expert Review</button>
+  <!-- FULL RESULT: shown after email -->
+  <div class="full-result" id="full-result">
+    <div class="result-section causes" id="causes-section">
+      <h3>Probable Root Causes</h3>
+      <div id="causes-list"></div>
     </div>
+    <div class="result-section factors" id="factors-section">
+      <h3>Contributing Factors</h3>
+      <div id="factors-list"></div>
+    </div>
+    <div class="result-section actions" id="actions-section">
+      <h3>Immediate Actions</h3>
+      <div id="actions-list"></div>
+    </div>
+    <div class="result-section similar" id="similar-section">
+      <h3>Similar Incidents in Our Database</h3>
+      <div id="similar-list"></div>
+    </div>
+    <div class="recommendation-box" id="rec-box">
+      <h3>Expert Recommendation</h3>
+      <p id="rec-text"></p>
+    </div>
+
     <div class="review-sent" id="review-sent">
-      <p>Review request received. Our HSE team will contact you at the email provided within 48 hours.</p>
+      <p>Review request received. Our HSE team will be in touch within 48 hours.</p>
     </div>
-    <div style="text-align:center;margin-top:1.5rem">
-      <p style="color:var(--mist);font-size:13px;margin-bottom:0.75rem">Get daily safety intelligence delivered to your team every morning</p>
-      <a href="https://dayzero.energy/#subscribe" class="btn-subscribe">Subscribe to Day Zero</a>
+
+    <!-- PILOT CTA -->
+    <div class="pilot-cta" id="pilot-cta">
+      <h3>This is one analysis.<br>Your team gets one every morning.</h3>
+      <p>Day Zero delivers a daily safety brief to your workforce — one real incident, one root cause, one action — reviewed by our HSE team before it reaches your people. Start with a free pilot.</p>
+      <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request" class="btn-pilot">Request a Free Pilot</a>
     </div>
   </div>
 </div>
 
 <footer>
-  <a href="https://dayzero.energy">dayzero.energy</a> &middot; Day Zero Energy Limited &middot; An Identis Ltd Initiative
+  <a href="https://dayzero.energy">dayzero.energy</a> &middot; Day Zero Energy Limited &middot; Daily Safety Intelligence for African Oil &amp; Gas
 </footer>
 
 <script>
-const API = "https://api.dayzero.energy"
-let lastAnalysisEmail = ""
+var API = "https://api.dayzero.energy";
+var analysisData = null;
+var analysisId = null;
 
-async function analyse() {
-  const email = document.getElementById("email").value.trim()
-  const description = document.getElementById("description").value.trim()
-  const name = document.getElementById("name").value.trim()
-  const company = document.getElementById("company").value.trim()
+// Character counter
+document.getElementById("incident-desc").addEventListener("input", function() {
+  document.getElementById("char-hint").textContent = this.value.length + " characters";
+});
 
-  if (!email) { alert("Please enter your work email"); return }
-  if (!email.includes("@")) { alert("Please enter a valid email"); return }
-  if (description.length < 20) { alert("Please describe the incident in more detail (at least 20 characters)"); return }
-
-  lastAnalysisEmail = email
-  const btn = document.getElementById("analyse-btn")
-  const spinner = document.getElementById("spinner")
-  const btnText = document.getElementById("btn-text")
-  btn.disabled = true
-  spinner.style.display = "block"
-  btnText.textContent = "Analysing..."
-
-  try {
-    const res = await fetch(API + "/analyse", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ description, contact_email: email, contact_name: name, company_name: company })
-    })
-    const data = await res.json()
-    if (data.error) { alert(data.error); return }
-    displayResults(data.analysis)
-  } catch (e) {
-    alert("Analysis failed. Please try again.")
-  } finally {
-    btn.disabled = false
-    spinner.style.display = "none"
-    btnText.textContent = "Analyse Another Incident"
+// Analyse button
+document.getElementById("analyse-btn").addEventListener("click", function() {
+  var desc = document.getElementById("incident-desc").value.trim();
+  if (desc.length < 30) {
+    alert("Please describe the incident in more detail — at least 30 characters.");
+    return;
   }
+  runAnalysis(desc);
+});
+
+function runAnalysis(desc) {
+  var btn = document.getElementById("analyse-btn");
+  var spinner = document.getElementById("spinner");
+  var btnText = document.getElementById("btn-text");
+  btn.disabled = true;
+  spinner.style.display = "block";
+  btnText.textContent = "Analysing...";
+
+  fetch(API + "/analyse", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      description: desc,
+      contact_email: "anonymous"
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    btn.disabled = false;
+    spinner.style.display = "none";
+    btnText.textContent = "Analyse Another Incident";
+    if (data.error) { alert(data.error); return; }
+    analysisData = data.analysis;
+    analysisId = data.id;
+    showPartialResult(data.analysis);
+  })
+  .catch(function() {
+    btn.disabled = false;
+    spinner.style.display = "none";
+    btnText.textContent = "Analyse Incident";
+    alert("Analysis failed. Please try again.");
+  });
 }
 
-function displayResults(a) {
-  document.getElementById("results").style.display = "block"
-  document.getElementById("cta-section").style.display = "block"
+function showPartialResult(a) {
+  // Severity badge
+  var sev = (a.severity_rating || "medium").toLowerCase();
+  var sevBadge = document.getElementById("sev-badge");
+  sevBadge.textContent = "Severity: " + sev.toUpperCase();
+  sevBadge.className = "sev-badge sev-" + sev;
 
-  const sevClass = "severity-" + (a.severity_rating || "medium").toLowerCase()
-  document.getElementById("severity-box").innerHTML = '<div class="severity ' + sevClass + '">Severity: ' + (a.severity_rating || "Medium").toUpperCase() + '</div>'
-
-  let rootHtml = ""
-  for (const r of a.probable_root_causes || []) {
-    rootHtml += '<div class="result-item"><div class="item-title">' + r.title + '</div><div class="item-text">' + r.explanation + '</div></div>'
+  // First cause only
+  var causes = a.probable_root_causes || [];
+  if (causes.length > 0) {
+    document.getElementById("first-cause-title").textContent = causes[0].title || "";
+    document.getElementById("first-cause-text").textContent = causes[0].explanation || "";
   }
-  document.getElementById("root-list").innerHTML = rootHtml
 
-  let factorHtml = ""
-  for (const f of a.contributing_factors || []) {
-    factorHtml += '<div class="result-item"><div class="item-title">' + (f.title || f) + '</div><div class="item-text">' + (f.explanation || "") + '</div></div>'
-  }
-  document.getElementById("factor-list").innerHTML = factorHtml
-
-  let actionHtml = ""
-  for (const ac of a.immediate_actions || []) {
-    const text = typeof ac === "string" ? ac : (ac.action || ac.title || "")
-    actionHtml += '<div class="result-item"><div class="item-text">' + text + '</div></div>'
-  }
-  document.getElementById("action-list").innerHTML = actionHtml
-
-  let simHtml = ""
-  for (const s of a.similar_incidents || []) {
-    simHtml += '<div class="result-item"><div class="item-title">' + s.name + ' (' + s.year + ')</div></div>'
-  }
-  document.getElementById("similar-list").innerHTML = simHtml
-
-  document.getElementById("rec-text").textContent = a.recommendation || ""
-
-  document.getElementById("results").scrollIntoView({ behavior: "smooth" })
+  document.getElementById("partial-result").style.display = "block";
+  document.getElementById("gate-prompt").style.display = "block";
+  document.getElementById("full-result").style.display = "none";
+  document.getElementById("partial-result").scrollIntoView({ behavior: "smooth" });
 }
 
-async function requestReview() {
-  try {
-    await fetch(API + "/analyse/request-review", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contact_email: lastAnalysisEmail })
+// Unlock full result
+document.getElementById("unlock-btn").addEventListener("click", function() {
+  var email = document.getElementById("gate-email").value.trim();
+  if (!email || !email.includes("@")) {
+    alert("Please enter a valid work email.");
+    return;
+  }
+  if (!analysisData) return;
+
+  // Save email to backend
+  fetch(API + "/analyse/request-review", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contact_email: email,
+      contact_name: document.getElementById("gate-name").value.trim(),
+      company_name: document.getElementById("gate-company").value.trim(),
+      incident_id: analysisId
     })
-  } catch {}
-  document.querySelector(".btn-review").style.display = "none"
-  document.getElementById("review-sent").style.display = "block"
+  }).catch(function() {});
+
+  showFullResult(analysisData);
+});
+
+function showFullResult(a) {
+  document.getElementById("gate-prompt").style.display = "none";
+
+  // Remaining root causes (2 and 3 — first was shown free)
+  var causes = a.probable_root_causes || [];
+  var causeHtml = "";
+  causes.forEach(function(c) {
+    causeHtml += '<div class="result-item"><div class="item-title">' + (c.title || "") + '</div><div class="item-text">' + (c.explanation || "") + '</div></div>';
+  });
+  document.getElementById("causes-list").innerHTML = causeHtml;
+
+  // Contributing factors
+  var factors = a.contributing_factors || [];
+  var factorHtml = "";
+  factors.forEach(function(f) {
+    factorHtml += '<div class="result-item"><div class="item-title">' + (f.title || f) + '</div><div class="item-text">' + (f.explanation || "") + '</div></div>';
+  });
+  document.getElementById("factors-list").innerHTML = factorHtml;
+
+  // Actions
+  var actions = a.immediate_actions || [];
+  var actionHtml = "";
+  actions.forEach(function(ac) {
+    var text = typeof ac === "string" ? ac : (ac.action || ac.title || "");
+    actionHtml += '<div class="result-item"><div class="item-text">' + text + '</div></div>';
+  });
+  document.getElementById("actions-list").innerHTML = actionHtml;
+
+  // Similar incidents
+  var similar = a.similar_incidents || [];
+  var simHtml = "";
+  similar.forEach(function(s) {
+    simHtml += '<div class="result-item"><div class="item-title">' + s.name + ' (' + s.year + ')</div></div>';
+  });
+  document.getElementById("similar-list").innerHTML = simHtml;
+
+  // Recommendation
+  document.getElementById("rec-text").textContent = a.recommendation || "";
+
+  document.getElementById("full-result").style.display = "block";
+  document.getElementById("pilot-cta").style.display = "block";
+  document.getElementById("full-result").scrollIntoView({ behavior: "smooth" });
 }
 </script>
 </body>
