@@ -145,48 +145,43 @@ footer{background:#060810;padding:2rem}
     </div>
   </div>
 </section>
-<section style="background:var(--ink);padding:4rem 2rem;border-bottom:1px solid var(--border)">
-  <div class="container" style="max-width:760px">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.5rem">
+<section class="brief-section" id="sample" style="background:var(--cream)">
+  <div class="container" style="max-width:780px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:1.25rem">
       <span style="width:8px;height:8px;background:var(--red);border-radius:50%;animation:pulse 2s infinite"></span>
       <span style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red)">Today's Safety Brief</span>
     </div>
-    <div style="background:#0E1528;border:1px solid var(--border);border-radius:8px;padding:2rem">
-      <div id="teaser-loc" style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem"></div>
-      <h3 id="teaser-title" style="font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:white;line-height:1.3;margin-bottom:1rem">Loading today's brief...</h3>
-      <p id="teaser-text" style="font-size:1rem;color:var(--mist);line-height:1.75;margin-bottom:1.5rem"></p>
-      <div style="border-top:1px solid var(--border);padding-top:1.5rem;margin-top:0.5rem">
-        <p style="font-size:0.9rem;color:var(--mist);line-height:1.7;margin-bottom:1.25rem">The full brief continues with the immediate cause, contributing factors, root cause, the lesson, and one action for today. Reviewed by our HSE team before publication.</p>
-        <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request" class="btn-primary" style="display:inline-block;text-decoration:none;font-size:13px;padding:11px 24px">Request a Pilot to Receive It →</a>
+    <h2 class="section-title" style="margin-bottom:0.75rem">A real incident. The full investigation. One action for today.</h2>
+    <p class="section-sub" style="max-width:100%;margin-bottom:2.5rem">Every brief follows a complete investigation framework — immediate cause, contributing factors, root cause, lesson, and action. Selected, written, and reviewed by our HSE team before publication.</p>
+
+    <div class="brief-card">
+      <div class="brief-card-top">
+        <span class="brief-date-chip" id="teaser-chip">Today's Edition</span>
+        <div class="brief-card-title" id="teaser-title">Port Talbot, Wales · 1999</div>
+        <div class="brief-tags"><span class="btag btag-red" id="teaser-loc">Confined Space</span><span class="btag btag-slate">Reviewed by our HSE team</span></div>
       </div>
-    </div>
-  </div>
-</section>
-<section class="brief-section" id="sample">
-  <div class="container">
-    <div class="brief-split">
-      <div>
-        <div class="section-label">Today's Brief</div>
-        <h2 class="section-title">What happened on this day. What it means for your team today.</h2>
-        <p class="section-sub" style="max-width:100%">Drawn from a verified global incident database spanning decades of oil and gas history. Every entry selected, written, and quality-checked by our HSE expert team before it reaches your workforce.</p>
+      <div class="brief-body">
+        <div class="brief-block"><div class="brief-block-label lbl-red">What Happened</div><div class="brief-block-text" id="teaser-text">Three workers died after entering a confined space to rescue a colleague overcome by nitrogen. None had breathing apparatus and the space had not been tested.</div></div>
+
+        <div style="position:relative;margin-top:1.25rem;border-top:1px dashed #D8D5CF;padding-top:1.25rem">
+          <div style="display:grid;gap:10px;filter:blur(4px);opacity:0.55;pointer-events:none;user-select:none">
+            <div class="brief-block" style="margin:0"><div class="brief-block-label lbl-gold">Immediate Cause</div><div class="brief-block-text">Entry into an oxygen-deficient atmosphere without testing or apparatus.</div></div>
+            <div class="brief-block" style="margin:0"><div class="brief-block-label lbl-gold">Contributing Factors</div><div class="brief-block-text">No gas test. No rescue plan. Instinctive rescue without protection.</div></div>
+            <div class="brief-block" style="margin:0"><div class="brief-block-label lbl-gold">Root Cause</div><div class="brief-block-text">Confined-space entry procedure not enforced as a hard control.</div></div>
+            <div class="brief-block" style="margin:0"><div class="brief-block-label lbl-green">Lesson Learned</div><div class="brief-block-text">Most confined-space deaths are would-be rescuers.</div></div>
+          </div>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1rem">
+            <div style="background:rgba(14,21,40,0.04);border:1px solid #D8D5CF;border-radius:8px;padding:1.5rem;max-width:420px">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px">Immediate cause · Contributing factors · Root cause · Lesson · Action</div>
+              <p style="font-size:0.9rem;color:#5A6A7E;line-height:1.65;margin-bottom:1rem">The full investigation is delivered to your team each morning. Start a pilot to receive it.</p>
+              <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request" class="btn-primary" style="display:inline-block;text-decoration:none;font-size:13px;padding:10px 22px">Request a Pilot to Unlock →</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="brief-card">
-        <div class="brief-card-top">
-          <span class="brief-date-chip">Sample Edition</span>
-          <div class="brief-card-title">Piper Alpha: When a Permit-to-Work System Failed 167 People</div>
-          <div class="brief-tags"><span class="btag btag-red">Offshore Platform</span><span class="btag btag-slate">Process Safety · 1988</span></div>
-        </div>
-        <div class="brief-body">
-          <div class="brief-block"><div class="brief-block-label lbl-red">What Happened</div><div class="brief-block-text">167 men died because one conversation didn't happen at shift handover. The night crew started a pump without knowing the safety valve had been removed. Nobody told them.</div></div>
-          <div class="brief-block"><div class="brief-block-label lbl-gold">Root Cause</div><div class="brief-block-text">Suspended permit not communicated at shift handover.</div></div>
-          <div class="brief-block"><div class="brief-block-label lbl-green">Lesson Learned</div><div class="brief-block-text">A PTW system is a communication protocol — not a document.</div></div>
-          <div class="brief-action-box"><div class="brief-action-text"><strong>Action for today</strong>Walk your PTW board. Tell the incoming shift verbally — not on paper.</div></div>
-        </div>
-        <div class="brief-curator">
-          <div class="cur-av">GS</div>
-          <div><div class="cur-name">Day Zero Editorial Team</div><div class="cur-role">Led by Engr G A Shittu · P&amp;G + TotalEnergies EP Nigeria</div></div>
-          
-        </div>
+      <div class="brief-curator">
+        <div class="cur-av">GS</div>
+        <div><div class="cur-name">Day Zero Editorial Team</div><div class="cur-role">Led by Engr G A Shittu · P&amp;G + TotalEnergies EP Nigeria</div></div>
       </div>
     </div>
   </div>
@@ -250,19 +245,24 @@ footer{background:#060810;padding:2rem}
 {"@context":"https://schema.org","@type":"Organization","name":"Day Zero","url":"https://dayzero.energy","description":"Daily safety intelligence for African oil and gas operations. Expert-curated incident briefs delivered every morning.","founder":{"@type":"Person","name":"Engr G A Shittu","jobTitle":"Chief Executive Officer","description":"Chief Executive Officer of Day Zero Energy Limited, with decades of safety leadership across Procter and Gamble and TotalEnergies EP Nigeria"},"areaServed":"Africa","serviceType":"Safety Intelligence"}
 </script>
 <script>
-// Fetch crude oil prices
+// Fetch crude oil prices — hide ticker gracefully if unavailable
 fetch("https://api.dayzero.energy/market/crude")
   .then(function(r){ return r.json(); })
   .then(function(d){
-    if (d.brent && d.brent.price) document.getElementById("brent-price").textContent = "$" + d.brent.price.toFixed(2);
-    if (d.wti && d.wti.price) document.getElementById("wti-price").textContent = "$" + d.wti.price.toFixed(2);
+    var gotPrice = false;
+    if (d.brent && d.brent.price) { document.getElementById("brent-price").textContent = "$" + d.brent.price.toFixed(2); gotPrice = true; }
+    if (d.wti && d.wti.price) { document.getElementById("wti-price").textContent = "$" + d.wti.price.toFixed(2); gotPrice = true; }
     var dateEl = document.getElementById("crude-date");
     var date = (d.brent && d.brent.date) || (d.wti && d.wti.date);
     if (date && dateEl) dateEl.textContent = date;
+    // If no prices at all, hide the ticker rather than show empty dashes
+    if (!gotPrice) { var t = document.getElementById("crude-ticker"); if (t) t.style.display = "none"; }
   })
-  .catch(function(){});
+  .catch(function(){
+    var t = document.getElementById("crude-ticker"); if (t) t.style.display = "none";
+  });
 
-// Fetch today's public brief teaser
+// Fetch today's public brief teaser — updates visible title and what-happened only
 fetch("https://api.dayzero.energy/market/today-brief")
   .then(function(r){ return r.json(); })
   .then(function(d){
@@ -270,9 +270,9 @@ fetch("https://api.dayzero.energy/market/today-brief")
     var titleEl = document.getElementById("teaser-title");
     var textEl = document.getElementById("teaser-text");
     var locEl = document.getElementById("teaser-loc");
-    if (titleEl) titleEl.textContent = d.title;
-    if (textEl) textEl.textContent = d.what_happened;
-    if (locEl && d.location) locEl.textContent = d.location + (d.country ? ", " + d.country : "");
+    if (titleEl && d.title) titleEl.textContent = d.title;
+    if (textEl && d.what_happened) textEl.textContent = d.what_happened;
+    if (locEl && d.location) locEl.textContent = d.location;
   })
   .catch(function(){});
 </script>
