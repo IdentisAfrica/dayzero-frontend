@@ -130,7 +130,7 @@ footer a{color:var(--fog);text-decoration:none}
       <div class="first-cause-text" id="first-cause-text"></div>
     </div>
     <div class="gate-card" id="gate-step">
-      <p>This is one signal. The full analysis identifies <strong>all three root causes</strong>, contributing factors, immediate actions, similar incidents, and a formal recommendation.</p>
+      <p>This is one signal. The full analysis lays out the facts, the immediate cause, the aggravating factors, the root cause, the lessons, and what to do before lunch. Every finding traces back to specific facts.</p>
       <p>Enter your work email to receive the complete report.</p>
       <div class="gate-fields">
         <input type="email" class="gate-input" id="gate-email" placeholder="your@company.com">
@@ -152,11 +152,12 @@ footer a{color:var(--fog);text-decoration:none}
   </div>
   <div class="full-result" id="full-result">
     <div class="email-confirm" id="email-confirm">Full report sent to your inbox.</div>
-    <div class="result-section causes"><h3>Probable Root Causes</h3><div id="causes-list"></div></div>
-    <div class="result-section factors"><h3>Contributing Factors</h3><div id="factors-list"></div></div>
-    <div class="result-section actions"><h3>Immediate Actions</h3><div id="actions-list"></div></div>
-    <div class="result-section similar"><h3>Similar Incidents</h3><div id="similar-list"></div></div>
-    <div class="rec-box"><h3>Expert Recommendation</h3><p id="rec-text"></p></div>
+    <div class="result-section facts"><h3>Facts</h3><pre id="facts-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
+    <div class="result-section immediate"><h3>Immediate Cause</h3><pre id="immediate-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
+    <div class="result-section aggravating"><h3>Aggravating Factors</h3><pre id="aggravating-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
+    <div class="result-section causes"><h3>Root Cause</h3><pre id="causes-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
+    <div class="result-section lessons"><h3>Lessons</h3><pre id="lessons-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
+    <div class="rec-box actions-box"><h3>Today's Actions</h3><pre id="actions-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
     <p style="font-size:11px;line-height:1.55;color:var(--mist);margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)">This analysis is advisory, for awareness and training. It does not replace your own risk assessments, procedures, or HSE management system. Apply your own judgment and site controls.</p>
     <div class="pilot-cta">
       <h3>This is one analysis.<br>Your team gets one every morning.</h3>
@@ -176,7 +177,7 @@ document.getElementById("incident-desc").addEventListener("input",function(){
 
 document.getElementById("analyse-btn").addEventListener("click",function(){
   var desc=document.getElementById("incident-desc").value.trim();
-  if(desc.length<30){alert("Please describe the incident in more detail — at least 30 characters.");return;}
+  var wordCount=desc.split(/\s+/).filter(function(w){return w.length>0}).length; if(wordCount<80){alert("Tell us more. We need at least 80 words — what was being done, what failed, when, where, and what people saw.");return;}
   runAnalysis(desc);
 });
 
@@ -184,27 +185,36 @@ function runAnalysis(desc){
   var btn=document.getElementById("analyse-btn");
   var spinner=document.getElementById("spinner");
   var btnText=document.getElementById("btn-text");
-  btn.disabled=true;spinner.style.display="block";btnText.textContent="Analysing...";
+  btn.disabled=true;spinner.style.display="block";
+  var steps=["Reading what you described.","Working out what failed and what made it worse.","Pulling out the root cause and what to do today."];
+  var stepIdx=0;
+  btnText.textContent=steps[0];
+  var stepTimer=setInterval(function(){
+    stepIdx++;
+    if(stepIdx<steps.length) btnText.textContent=steps[stepIdx];
+    else clearInterval(stepTimer);
+  },9000);
   fetch(API+"/analyse",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({description:desc,contact_email:"anonymous"})})
   .then(function(r){return r.json();})
   .then(function(data){
+    clearInterval(stepTimer);
     btn.disabled=false;spinner.style.display="none";btnText.textContent="Analyse Another Incident";
     if(data.error){alert(data.error);return;}
     analysisData=data.analysis;reviewId=data.id;
     showPartial(data.analysis);
   })
-  .catch(function(){btn.disabled=false;spinner.style.display="none";btnText.textContent="Analyse Incident";alert("Analysis failed. Please try again.");});
+  .catch(function(){clearInterval(stepTimer);btn.disabled=false;spinner.style.display="none";btnText.textContent="Analyse Incident";alert("Analysis failed. Please try again.");});
 }
 
 function showPartial(a){
-  var sev=(a.severity_rating||"medium").toLowerCase();
+  var firstFact=(a.facts||"").split("\n")[0]||"";
+  var firstImmediate=(a.immediate_cause||"").split("\n")[0]||"";
   var badge=document.getElementById("sev-badge");
   badge.textContent="Severity: "+sev.toUpperCase();
   badge.className="sev-badge sev-"+sev;
-  var causes=a.probable_root_causes||[];
-  if(causes.length>0){
-    document.getElementById("first-cause-title").textContent=causes[0].title||"";
-    document.getElementById("first-cause-text").textContent=causes[0].explanation||"";
+  if(firstFact){
+    document.getElementById("first-cause-title").textContent="What we extracted from your description";
+    document.getElementById("first-cause-text").textContent=firstFact+(firstImmediate?" "+firstImmediate:"");
   }
   document.getElementById("partial-result").style.display="block";
   document.getElementById("gate-step").style.display="block";
@@ -258,15 +268,12 @@ function showFull(a){
   document.getElementById("partial-result").style.display="none";
   document.getElementById("full-result").style.display="block";
   document.getElementById("email-confirm").textContent="Full report sent to "+userEmail;
-  var causes=a.probable_root_causes||[];
-  document.getElementById("causes-list").innerHTML=causes.map(function(c){return'<div class="result-item"><div class="item-title">'+(c.title||"")+'</div><div class="item-text">'+(c.explanation||"")+'</div></div>';}).join("");
-  var factors=a.contributing_factors||[];
-  document.getElementById("factors-list").innerHTML=factors.map(function(f){return'<div class="result-item"><div class="item-title">'+(f.title||f)+'</div><div class="item-text">'+(f.explanation||"")+'</div></div>';}).join("");
-  var actions=a.immediate_actions||[];
-  document.getElementById("actions-list").innerHTML=actions.map(function(ac){var t=typeof ac==="string"?ac:(ac.action||ac.title||"");return'<div class="result-item"><div class="item-text">'+t+'</div></div>';}).join("");
-  var similar=a.similar_incidents||[];
-  document.getElementById("similar-list").innerHTML=similar.map(function(s){return'<div class="result-item"><div class="item-title">'+s.name+" ("+s.year+")"+'</div></div>';}).join("");
-  document.getElementById("rec-text").textContent=a.recommendation||"";
+  document.getElementById("facts-list").textContent=a.facts||"";
+  document.getElementById("immediate-list").textContent=a.immediate_cause||"";
+  document.getElementById("aggravating-list").textContent=a.aggravating_factors||"";
+  document.getElementById("causes-list").textContent=a.root_causes||"";
+  document.getElementById("lessons-list").textContent=a.lesson_learned||"";
+  document.getElementById("actions-list").textContent=a.action_today||"";
   document.getElementById("full-result").scrollIntoView({behavior:"smooth"});
 }
 </script>
