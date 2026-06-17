@@ -169,112 +169,58 @@ footer a{color:var(--fog);text-decoration:none}
 <footer>Day Zero Energy Limited &middot; RC 9610309 &middot; <a href="https://dayzero.energy">dayzero.energy</a> &middot; &copy; 2026</footer>
 <script>
 var API="https://api.dayzero.energy";
-var analysisData=null,reviewId=null,userEmail=null;
-
-document.getElementById("incident-desc").addEventListener("input",function(){
-  document.getElementById("char-hint").textContent=this.value.length+" characters";
-});
 
 document.getElementById("analyse-btn").addEventListener("click",function(){
-  var desc=document.getElementById("incident-desc").value.trim();
-  var wordCount=desc.split(/\s+/).filter(function(w){return w.length>0}).length; if(wordCount<80){alert("Tell us more. We need at least 80 words — what was being done, what failed, when, where, and what people saw.");return;}
-  runAnalysis(desc);
-});
+  var desc=document.getElementById("incident-input").value.trim();
+  var wordCount=desc.split(/\s+/).filter(function(w){return w.length>0}).length;
+  if(wordCount<80){alert("Tell us more. We need at least 80 words — what was being done, what failed, when, where, and what people saw.");return;}
 
-function runAnalysis(desc){
   var btn=document.getElementById("analyse-btn");
-  var spinner=document.getElementById("spinner");
-  var btnText=document.getElementById("btn-text");
-  btn.disabled=true;spinner.style.display="block";
+  var spinner=document.getElementById("analyse-spinner");
+  var btnText=document.getElementById("analyse-btn-text");
+  btn.disabled=true;
+  spinner.style.display="inline-block";
+
   var steps=["Reading what you described.","Working out what failed and what made it worse.","Pulling out the root cause and what to do today."];
-  var stepIdx=0;
+  var stepIndex=0;
   btnText.textContent=steps[0];
   var stepTimer=setInterval(function(){
-    stepIdx++;
-    if(stepIdx<steps.length) btnText.textContent=steps[stepIdx];
-    else clearInterval(stepTimer);
+    stepIndex=(stepIndex+1)%steps.length;
+    btnText.textContent=steps[stepIndex];
   },9000);
-  fetch(API+"/analyse",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({description:desc,contact_email:"anonymous"})})
-  .then(function(r){return r.json();})
+
+  fetch(API+"/analyse",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({description:desc,contact_email:"anonymous"})
+  })
+  .then(function(res){return res.json();})
   .then(function(data){
     clearInterval(stepTimer);
-    btn.disabled=false;spinner.style.display="none";btnText.textContent="Analyse Another Incident";
-    if(data.error){alert(data.error);return;}
-    analysisData=data.analysis;reviewId=data.id;
-    showPartial(data.analysis);
-  })
-  .catch(function(){clearInterval(stepTimer);btn.disabled=false;spinner.style.display="none";btnText.textContent="Analyse Incident";alert("Analysis failed. Please try again.");});
-}
-
-function showPartial(a){
-  var firstFact=(a.facts||"").split("\n")[0]||"";
-  var firstImmediate=(a.immediate_cause||"").split("\n")[0]||"";
-  var badge=document.getElementById("sev-badge");
-  badge.textContent="Severity: "+sev.toUpperCase();
-  badge.className="sev-badge sev-"+sev;
-  if(firstFact){
-    document.getElementById("first-cause-title").textContent="What we extracted from your description";
-    document.getElementById("first-cause-text").textContent=firstFact+(firstImmediate?" "+firstImmediate:"");
-  }
-  document.getElementById("partial-result").style.display="block";
-  document.getElementById("gate-step").style.display="block";
-  document.getElementById("code-step").style.display="none";
-  document.getElementById("partial-result").scrollIntoView({behavior:"smooth"});
-}
-
-document.getElementById("send-code-btn").addEventListener("click",function(){
-  var email=document.getElementById("gate-email").value.trim();
-  if(!email||!email.includes("@")){alert("Please enter a valid work email.");return;}
-  if(!reviewId){alert("Please analyse an incident first.");return;}
-  userEmail=email;
-  var btn=document.getElementById("send-code-btn");
-  btn.disabled=true;btn.textContent="Sending...";
-  fetch(API+"/analyse/send-code",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:email,review_id:reviewId,contact_name:document.getElementById("gate-name").value.trim(),company_name:document.getElementById("gate-company").value.trim()})})
-  .then(function(r){return r.json();})
-  .then(function(data){
-    btn.disabled=false;btn.textContent="Send Me the Full Report";
-    if(data.error){alert(data.error);return;}
-    document.getElementById("gate-step").style.display="none";
-    document.getElementById("code-step").style.display="block";
-    document.getElementById("email-shown").textContent=email;
-  })
-  .catch(function(){btn.disabled=false;btn.textContent="Send Me the Full Report";alert("Failed to send code. Please try again.");});
-});
-
-document.getElementById("verify-code-btn").addEventListener("click",function(){
-  var code=document.getElementById("code-input").value.trim();
-  if(code.length!==6){alert("Please enter the 6-digit code.");return;}
-  var btn=document.getElementById("verify-code-btn");
-  btn.disabled=true;btn.textContent="Verifying...";
-  document.getElementById("code-error").style.display="none";
-  fetch(API+"/analyse/verify-code",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({code:code,review_id:reviewId})})
-  .then(function(r){return r.json();})
-  .then(function(data){
-    btn.disabled=false;btn.textContent="Verify";
-    if(data.error){document.getElementById("code-error").textContent=data.error;document.getElementById("code-error").style.display="block";return;}
+    btn.disabled=false;
+    spinner.style.display="none";
+    btnText.textContent="Analyse Incident";
+    if(!data.analysis){alert("Analysis failed. Please try again.");return;}
     showFull(data.analysis);
   })
-  .catch(function(){btn.disabled=false;btn.textContent="Verify";alert("Verification failed. Please try again.");});
-});
-
-document.getElementById("resend-link").addEventListener("click",function(){
-  if(!userEmail||!reviewId)return;
-  fetch(API+"/analyse/send-code",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:userEmail,review_id:reviewId})})
-  .then(function(){alert("New code sent to "+userEmail);})
-  .catch(function(){alert("Failed to resend. Please try again.");});
+  .catch(function(){
+    clearInterval(stepTimer);
+    btn.disabled=false;
+    spinner.style.display="none";
+    btnText.textContent="Analyse Incident";
+    alert("Analysis failed. Please check your connection and try again.");
+  });
 });
 
 function showFull(a){
-  document.getElementById("partial-result").style.display="none";
-  document.getElementById("full-result").style.display="block";
-  document.getElementById("email-confirm").textContent="Full report sent to "+userEmail;
+  document.getElementById("result-block").style.display="block";
   document.getElementById("facts-list").textContent=a.facts||"";
   document.getElementById("immediate-list").textContent=a.immediate_cause||"";
   document.getElementById("aggravating-list").textContent=a.aggravating_factors||"";
   document.getElementById("causes-list").textContent=a.root_causes||"";
   document.getElementById("lessons-list").textContent=a.lesson_learned||"";
   document.getElementById("actions-list").textContent=a.action_today||"";
-  document.getElementById("full-result").scrollIntoView({behavior:"smooth"});
+  document.getElementById("result-block").scrollIntoView({behavior:"smooth"});
 }
 </script>
 </body>
