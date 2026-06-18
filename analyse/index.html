@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Describe a workplace incident. Day Zero's HSE analysis framework identifies where to look — severity, probable causes, and the systemic failure behind what happened.">
-<title>Incident Analyser — Day Zero</title>
+<meta name="description" content="Describe a workplace incident. Day Zero analyses it using the same sequential causation methodology behind the daily brief.">
+<title>Incident Analyser · Day Zero</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -40,15 +40,7 @@ textarea.incident-input::placeholder{color:rgba(255,255,255,0.2)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .partial-result{display:none;margin-bottom:2rem}
 .severity-row{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem}
-.sev-badge{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:6px 16px;border-radius:3px}
-.sev-critical{background:rgba(196,43,28,0.15);color:var(--red);border:1px solid rgba(196,43,28,0.3)}
-.sev-high{background:rgba(212,134,10,0.15);color:#D4890A;border:1px solid rgba(212,134,10,0.3)}
-.sev-medium{background:rgba(212,168,67,0.15);color:var(--gold);border:1px solid rgba(212,168,67,0.3)}
-.sev-low{background:rgba(26,122,74,0.15);color:var(--green);border:1px solid rgba(26,122,74,0.3)}
-.first-cause{background:var(--ink2);border:1px solid var(--border2);border-left:3px solid var(--red);border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin-bottom:1.5rem}
-.first-cause-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
-.first-cause-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px}
-.first-cause-text{font-size:13px;color:var(--mist);line-height:1.65}
+.sev-badge{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:6px 16px;border-radius:3px;background:rgba(212,168,67,0.15);color:var(--gold);border:1px solid rgba(212,168,67,0.3)}
 .gate-card{background:rgba(212,168,67,0.05);border:1px solid rgba(212,168,67,0.2);border-radius:6px;padding:1.75rem}
 .gate-card p{font-size:14px;color:var(--mist);line-height:1.7;margin-bottom:1.25rem}
 .gate-card strong{color:var(--white)}
@@ -69,22 +61,15 @@ textarea.incident-input::placeholder{color:rgba(255,255,255,0.2)}
 .code-error{color:var(--red);font-size:12px;margin-top:6px;display:none}
 .resend-link{font-size:12px;color:var(--fog);cursor:pointer;text-decoration:underline;margin-top:8px;display:inline-block}
 .full-result{display:none}
-.result-section{margin-bottom:1.25rem}
-.result-section h3{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem}
+.result-section{margin-bottom:1.25rem;background:var(--ink2);border:1px solid var(--border);border-radius:6px;padding:1rem 1.25rem}
+.result-section h3{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;color:var(--mist)}
+.result-section.facts h3{color:var(--white)}
+.result-section.immediate h3{color:var(--red)}
+.result-section.aggravating h3{color:var(--gold)}
 .result-section.causes h3{color:var(--red)}
-.result-section.factors h3{color:var(--gold)}
-.result-section.actions h3{color:var(--green)}
-.result-section.similar h3{color:#378ADD}
-.result-item{background:var(--ink2);border:1px solid var(--border);border-left:3px solid var(--border2);border-radius:0 4px 4px 0;padding:10px 14px;margin-bottom:8px}
-.result-section.causes .result-item{border-left-color:var(--red);background:rgba(196,43,28,0.05)}
-.result-section.factors .result-item{border-left-color:var(--gold);background:rgba(212,168,67,0.05)}
-.result-section.actions .result-item{border-left-color:var(--green);background:rgba(26,122,74,0.05)}
-.result-section.similar .result-item{border-left-color:#378ADD;background:rgba(55,138,221,0.05)}
-.item-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:3px}
-.item-text{font-size:12px;color:var(--mist);line-height:1.6}
+.result-section.lessons h3{color:var(--white)}
 .rec-box{background:var(--ink2);border:1px solid var(--border2);border-left:3px solid var(--gold);border-radius:0 6px 6px 0;padding:1.25rem 1.5rem;margin-top:1.5rem;margin-bottom:1rem}
 .rec-box h3{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-.rec-box p{font-size:13px;color:var(--mist);line-height:1.7}
 .email-confirm{background:rgba(26,122,74,0.08);border:1px solid rgba(26,122,74,0.2);border-radius:6px;padding:12px 16px;margin-bottom:1.5rem;font-size:13px;color:var(--green)}
 .pilot-cta{background:rgba(196,43,28,0.08);border:1px solid rgba(196,43,28,0.2);border-radius:6px;padding:2rem;text-align:center;margin-top:1.5rem;margin-bottom:2rem}
 .pilot-cta h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:0.75rem;line-height:1.3}
@@ -98,133 +83,265 @@ footer a{color:var(--fog);text-decoration:none}
 <body>
 <nav>
   <a href="https://dayzero.energy" class="nav-brand">
-    <div class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
-    <span class="nav-name">DAY <span>ZERO</span></span>
+    <span class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></span>
+    <span class="nav-name">DAY ZERO<span> · HSE</span></span>
   </a>
   <div class="nav-right">
     <a href="https://dayzero.energy" class="nav-link">Home</a>
-    <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request" class="nav-cta">Request Pilot</a>
+    <a href="mailto:team@dayzero.energy?subject=Day Zero Pilot Request" class="nav-cta">Request Pilot</a>
   </div>
 </nav>
+
 <div class="container">
   <div class="eyebrow">Incident Analyser</div>
-  <h1>Tell us what happened.<br><em>We show you where to look.</em></h1>
-  <p class="intro">Describe the incident. Our analysis framework, built by a team of HSE professionals with <strong>decades of HSE experience in oil and gas</strong>, identifies the severity, the probable systemic failure, and what your team needs to know today.</p>
+  <h1>Describe what happened.<br><em>We find out why.</em></h1>
+  <p class="intro">The same sequential causation methodology behind the Day Zero daily brief, applied to your incident, right now. <strong>Facts first, immediate cause, aggravating factors, root cause, and the action your team can take today.</strong></p>
+
   <div class="input-card">
-    <label class="input-label" for="incident-desc">Describe the incident</label>
-    <textarea class="incident-input" id="incident-input" placeholder="What happened? Include the activity being performed, what went wrong, the equipment or system involved, and any known contributing circumstances. The more detail you provide, the sharper the analysis."></textarea>
-    <div class="char-hint" id="char-hint">0 characters</div>
+    <label class="input-label" for="incident-input">What happened</label>
+    <textarea class="incident-input" id="incident-input" placeholder="Describe the incident in as much detail as you have. What work was being done, what failed, the sequence of events, who was involved, injuries or damage, and any conditions that may have contributed. More detail makes the analysis sharper."></textarea>
+    <div class="char-hint" id="char-hint">0 words</div>
+
+    <label class="input-label" for="gate-email" style="margin-top:1.5rem">Your work email</label>
+    <input type="email" class="gate-input" id="gate-email" placeholder="you@yourcompany.com">
+    <div class="char-hint">Your full analysis report is sent here.</div>
+
     <button class="btn-analyse" id="analyse-btn">
-      <span id="btn-text">Analyse Incident</span>
-      <div class="spinner" id="spinner"></div>
+      <span id="analyse-btn-text">Analyse Incident</span>
+      <span class="spinner" id="analyse-spinner"></span>
     </button>
   </div>
+
   <div class="partial-result" id="partial-result">
-    <div class="severity-row">
+    <div class="severity-row" style="display:none">
       <span class="sev-badge" id="sev-badge">Medium</span>
       <span style="font-size:13px;color:var(--mist)">Severity assessment</span>
     </div>
-    <div class="first-cause" id="first-cause-box">
-      <div class="first-cause-label">Primary probable cause</div>
-      <div class="first-cause-title" id="first-cause-title"></div>
-      <div class="first-cause-text" id="first-cause-text"></div>
+
+    <div class="gate-card" id="gate-step" style="display:none">
+      <p>Enter your work email above and submit your incident. We will send a verification code to confirm your email.</p>
     </div>
-    <div class="gate-card" id="gate-step">
-      <p>This is one signal. The full analysis lays out the facts, the immediate cause, the aggravating factors, the root cause, the lessons, and what to do before lunch. Every finding traces back to specific facts.</p>
-      <p>Enter your work email to receive the complete report.</p>
-      <div class="gate-fields">
-        <input type="email" class="gate-input" id="gate-email" placeholder="your@company.com">
-        <input type="text" class="gate-input" id="gate-name" placeholder="Your name (optional)">
-        <input type="text" class="gate-input" id="gate-company" placeholder="Company name (optional)">
-      </div>
-      <button class="btn-gate" id="send-code-btn">Send Me the Full Report</button>
-      <p class="gate-note">We will send a verification code to confirm your email. No spam.</p>
-    </div>
+
     <div class="gate-card code-step" id="code-step">
-      <p class="code-sent-msg">We sent a 6-digit code to <strong id="email-shown"></strong>. Enter it below to unlock the full report — it will also be sent to your inbox.</p>
+      <p class="code-sent-msg">We sent a 6-digit code to <strong id="email-shown"></strong>. Enter it below to unlock the full report. The full analysis is also sent to your inbox.</p>
       <div class="code-input-row">
-        <input type="text" class="code-input" id="code-input" placeholder="000000" maxlength="6">
+        <input type="text" class="code-input" id="code-input" placeholder="000000" maxlength="6" inputmode="numeric">
         <button class="btn-gate" id="verify-code-btn" style="width:auto;padding:12px 20px">Verify</button>
       </div>
       <div class="code-error" id="code-error">Incorrect code. Please try again.</div>
       <span class="resend-link" id="resend-link">Resend code</span>
     </div>
   </div>
+
   <div class="full-result" id="full-result">
-    <div class="email-confirm" id="email-confirm">Full report sent to your inbox.</div>
-    <div class="result-section facts"><h3>Facts</h3><pre id="facts-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
-    <div class="result-section immediate"><h3>Immediate Cause</h3><pre id="immediate-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
-    <div class="result-section aggravating"><h3>Aggravating Factors</h3><pre id="aggravating-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
-    <div class="result-section causes"><h3>Root Cause</h3><pre id="causes-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
-    <div class="result-section lessons"><h3>Lessons</h3><pre id="lessons-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
-    <div class="rec-box actions-box"><h3>Today's Actions</h3><pre id="actions-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7"></pre></div>
+    <div class="email-confirm">Full report sent to your inbox.</div>
+    <div class="result-section facts"><h3>Verified Facts</h3><pre id="facts-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7;color:var(--mist)"></pre></div>
+    <div class="result-section immediate"><h3>Immediate Cause</h3><pre id="immediate-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7;color:var(--mist)"></pre></div>
+    <div class="result-section aggravating"><h3>Aggravating Factors</h3><pre id="aggravating-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7;color:var(--mist)"></pre></div>
+    <div class="result-section causes"><h3>Root Causes</h3><pre id="causes-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7;color:var(--mist)"></pre></div>
+    <div class="result-section lessons"><h3>Lessons Learned</h3><pre id="lessons-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7;color:var(--mist);font-style:italic"></pre></div>
+    <div class="rec-box"><h3>Action Today</h3><pre id="actions-list" style="white-space:pre-wrap;font-family:inherit;margin:0;font-size:0.95rem;line-height:1.7;color:var(--white)"></pre></div>
+
     <p style="font-size:11px;line-height:1.55;color:var(--mist);margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border)">This analysis is advisory, for awareness and training. It does not replace your own risk assessments, procedures, or HSE management system. Apply your own judgment and site controls.</p>
+
     <div class="pilot-cta">
       <h3>This is one analysis.<br>Your team gets one every morning.</h3>
-      <p>Day Zero delivers a daily safety brief to your workforce — one real incident, one root cause, one action — reviewed by our HSE team before it reaches your people.</p>
-      <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request" class="btn-pilot">Request a Free Pilot</a>
+      <p>Day Zero delivers a daily safety brief to your workforce. One real incident, one root cause, one action, reviewed by our HSE team before it reaches your people.</p>
+      <a href="mailto:team@dayzero.energy?subject=Day Zero Pilot Request" class="btn-pilot">Request a Free Pilot</a>
     </div>
   </div>
 </div>
-<footer>Day Zero Energy Limited &middot; RC 9610309 &middot; <a href="https://dayzero.energy">dayzero.energy</a> &middot; &copy; 2026</footer>
+
+<footer>Day Zero Energy Limited · RC 9610309 · <a href="https://dayzero.energy">dayzero.energy</a> · © 2026</footer>
+
 <script>
-var API="https://api.dayzero.energy";
-document.getElementById("incident-input").addEventListener("input",function(){
-  var words=this.value.trim().split(/\s+/).filter(function(w){return w.length>0}).length;
-  document.getElementById("char-hint").textContent=words+" words";
+var API = "https://api.dayzero.energy";
+var submissionId = null;
+
+document.getElementById("incident-input").addEventListener("input", function () {
+  var words = this.value.trim().split(/\s+/).filter(function (w) { return w.length > 0; }).length;
+  document.getElementById("char-hint").textContent = words + " words";
 });
 
-document.getElementById("analyse-btn").addEventListener("click",function(){
-  var desc=document.getElementById("incident-input").value.trim();
-  var wordCount=desc.split(/\s+/).filter(function(w){return w.length>0}).length;
-  if(wordCount<80){alert("Tell us more. We need at least 80 words — what was being done, what failed, when, where, and what people saw.");return;}
+document.getElementById("analyse-btn").addEventListener("click", function () {
+  var desc = document.getElementById("incident-input").value.trim();
+  var emailEl = document.getElementById("gate-email");
+  var email = emailEl ? emailEl.value.trim() : "";
+  var wordCount = desc.split(/\s+/).filter(function (w) { return w.length > 0; }).length;
 
-  var btn=document.getElementById("analyse-btn");
-  var spinner=document.getElementById("analyse-spinner");
-  var btnText=document.getElementById("analyse-btn-text");
-  btn.disabled=true;
-  spinner.style.display="inline-block";
+  if (wordCount < 80) {
+    alert("Tell us more. We need at least 80 words: what was being done, what failed, when, where, and what people saw.");
+    return;
+  }
+  if (!email || email.indexOf("@") === -1) {
+    alert("Please enter your work email first. The full report is sent to your inbox.");
+    if (emailEl) emailEl.focus();
+    return;
+  }
 
-  var steps=["Reading what you described.","Working out what failed and what made it worse.","Pulling out the root cause and what to do today."];
-  var stepIndex=0;
-  btnText.textContent=steps[0];
-  var stepTimer=setInterval(function(){
-    stepIndex=(stepIndex+1)%steps.length;
-    btnText.textContent=steps[stepIndex];
-  },9000);
+  var btn = document.getElementById("analyse-btn");
+  var btnText = document.getElementById("analyse-btn-text");
+  var spinner = document.getElementById("analyse-spinner");
+  btn.disabled = true;
+  if (spinner) spinner.style.display = "inline-block";
+  if (btnText) btnText.textContent = "Sending code...";
 
-  fetch(API+"/analyse",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({description:desc,contact_email:"anonymous"})
+  fetch(API + "/analyse/send-code", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email: email, description: desc })
   })
-  .then(function(res){return res.json();})
-  .then(function(data){
-    clearInterval(stepTimer);
-    btn.disabled=false;
-    spinner.style.display="none";
-    btnText.textContent="Analyse Incident";
-    if(!data.analysis){alert("Analysis failed. Please try again.");return;}
-    showFull(data.analysis);
-  })
-  .catch(function(){
-    clearInterval(stepTimer);
-    btn.disabled=false;
-    spinner.style.display="none";
-    btnText.textContent="Analyse Incident";
-    alert("Analysis failed. Please check your connection and try again.");
-  });
+    .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+    .then(function (r) {
+      btn.disabled = false;
+      if (spinner) spinner.style.display = "none";
+      if (btnText) btnText.textContent = "Analyse Incident";
+
+      if (!r.ok || !r.data.success) {
+        alert(r.data.error || "Could not send verification code. Please try again.");
+        return;
+      }
+
+      submissionId = r.data.submission_id;
+      document.getElementById("partial-result").style.display = "block";
+      document.getElementById("code-step").style.display = "block";
+      document.getElementById("email-shown").textContent = email;
+      document.getElementById("partial-result").scrollIntoView({ behavior: "smooth" });
+      document.getElementById("code-input").focus();
+    })
+    .catch(function () {
+      btn.disabled = false;
+      if (spinner) spinner.style.display = "none";
+      if (btnText) btnText.textContent = "Analyse Incident";
+      alert("Could not reach the analyser. Check your connection and try again.");
+    });
 });
 
-function showFull(a){
-  document.getElementById("result-block").style.display="block";
-  document.getElementById("facts-list").textContent=a.facts||"";
-  document.getElementById("immediate-list").textContent=a.immediate_cause||"";
-  document.getElementById("aggravating-list").textContent=a.aggravating_factors||"";
-  document.getElementById("causes-list").textContent=a.root_causes||"";
-  document.getElementById("lessons-list").textContent=a.lesson_learned||"";
-  document.getElementById("actions-list").textContent=a.action_today||"";
-  document.getElementById("result-block").scrollIntoView({behavior:"smooth"});
+document.getElementById("verify-code-btn").addEventListener("click", function () {
+  var code = document.getElementById("code-input").value.trim();
+  if (!code || code.length !== 6) {
+    showCodeError("Please enter the 6-digit code from your email.");
+    return;
+  }
+  if (!submissionId) {
+    showCodeError("Session expired. Please submit your incident again.");
+    return;
+  }
+
+  var verifyBtn = document.getElementById("verify-code-btn");
+  verifyBtn.disabled = true;
+  hideCodeError();
+
+  var steps = [
+    "Reading what you described.",
+    "Working out what failed and what made it worse.",
+    "Pulling out the root cause and what to do today."
+  ];
+  var stepIndex = 0;
+  verifyBtn.textContent = steps[0];
+  var stepTimer = setInterval(function () {
+    stepIndex = (stepIndex + 1) % steps.length;
+    verifyBtn.textContent = steps[stepIndex];
+  }, 9000);
+
+  fetch(API + "/analyse/verify-and-analyse", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ submission_id: submissionId, code: code })
+  })
+    .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
+    .then(function (r) {
+      clearInterval(stepTimer);
+      verifyBtn.disabled = false;
+      verifyBtn.textContent = "Verify";
+
+      if (!r.ok || !r.data.success) {
+        showCodeError(r.data.error || "Verification failed. Please try again.");
+        return;
+      }
+
+      var result = r.data.result || {};
+      document.getElementById("code-step").style.display = "none";
+      document.getElementById("full-result").style.display = "block";
+
+      document.getElementById("facts-list").textContent = cleanText(result.facts);
+      document.getElementById("immediate-list").textContent = cleanText(result.immediate_cause);
+      document.getElementById("aggravating-list").textContent = cleanText(result.aggravating_factors);
+      document.getElementById("causes-list").textContent = cleanText(result.root_causes);
+      document.getElementById("lessons-list").textContent = cleanText(result.lessons_learned);
+      document.getElementById("actions-list").textContent = cleanText(result.action_today);
+
+      var sevRow = document.querySelector(".severity-row");
+      var sevBadge = document.getElementById("sev-badge");
+      if (sevBadge && result.severity) {
+        sevBadge.textContent = result.severity;
+        if (sevRow) sevRow.style.display = "flex";
+      }
+
+      document.getElementById("full-result").scrollIntoView({ behavior: "smooth" });
+    })
+    .catch(function () {
+      clearInterval(stepTimer);
+      verifyBtn.disabled = false;
+      verifyBtn.textContent = "Verify";
+      showCodeError("Network error. Please try again in a moment.");
+    });
+});
+
+document.getElementById("resend-link").addEventListener("click", function () {
+  if (!submissionId) {
+    showCodeError("Session expired. Please submit your incident again.");
+    return;
+  }
+  var link = this;
+  link.textContent = "Sending...";
+  link.style.pointerEvents = "none";
+
+  fetch(API + "/analyse/resend-code", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ submission_id: submissionId })
+  })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      link.style.pointerEvents = "";
+      if (data.success) {
+        link.textContent = "New code sent. Check your inbox.";
+        setTimeout(function () { link.textContent = "Resend code"; }, 5000);
+      } else {
+        link.textContent = "Resend code";
+        showCodeError(data.error || "Could not resend. Try again.");
+      }
+    })
+    .catch(function () {
+      link.style.pointerEvents = "";
+      link.textContent = "Resend code";
+      showCodeError("Network error. Please try again.");
+    });
+});
+
+document.getElementById("code-input").addEventListener("input", function () {
+  this.value = this.value.replace(/\D/g, "").slice(0, 6);
+  hideCodeError();
+});
+
+function showCodeError(msg) {
+  var el = document.getElementById("code-error");
+  el.textContent = msg;
+  el.style.display = "block";
+}
+function hideCodeError() {
+  var el = document.getElementById("code-error");
+  el.style.display = "none";
+}
+
+function cleanText(s) {
+  if (!s) return "";
+  return s
+    .replace(/\*\*/g, "")
+    .replace(/\DASH_LINE/gm, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 </script>
 </body>
