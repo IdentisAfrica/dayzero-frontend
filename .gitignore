@@ -3,3 +3,5 @@
 index.html.PREREFRAME.*
 index.html.bak.*
 build.py.bak.*
+.DS_Store
+*.bak*
