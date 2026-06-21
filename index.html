@@ -136,23 +136,30 @@ footer{background:#060810;padding:2rem}
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Daily Safety Intelligence · Oil & Gas · Africa</span></div>
-<div class="hero-video" style="max-width:640px;margin:1.5rem auto 2rem;border-radius:4px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.25);position:relative;aspect-ratio:16/9;">
-      <iframe
-        src="/video/intro.html"
-        title="Day Zero — 45 second introduction"
-        style="position:absolute;inset:0;width:100%;height:100%;border:0"
-        loading="lazy"
-        allow="autoplay">
-      </iframe>
+    <div class="hero-grid" style="display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center;margin-bottom:3rem">
+      <div class="hero-media">
+        <div class="hero-video" style="border-radius:4px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,0.35);position:relative;aspect-ratio:16/9;">
+          <video
+            src="/video/dayzero-promo.mp4"
+            title="Day Zero — introduction"
+            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#0D1F3C"
+            controls
+            playsinline
+            preload="metadata">
+          </video>
+        </div>
+      </div>
+      <div class="hero-copy">
+        <div class="hero-eyebrow" style="margin-bottom:1.25rem"><span class="eyebrow-dot"></span><span class="eyebrow-text">Daily Safety Intelligence · Oil & Gas · Africa</span></div>
+        <h1 class="hero-headline" style="font-size:clamp(2.25rem,4.5vw,4rem);margin-bottom:1.25rem">The incident that ends a career happened to <em>someone else</em> first.</h1>
+        <p class="hero-sub" style="margin-bottom:2rem">Day Zero puts a real incident in front of your workforce every morning. The cause, the lesson, and one action that prevents it on your site today. Reviewed by our HSE team, and built into a dated training record you can defend to any auditor.</p>
+        <div class="hero-actions">
+          <button class="btn-primary" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Request a Pilot</button>
+          <button class="btn-ghost" onclick="document.getElementById('sample').scrollIntoView({behavior:'smooth'})">See Today's Brief ↓</button>
+        </div>
+      </div>
     </div>
-
-    <h1 class="hero-headline">The incident that ends<br>a career happened to<br><em>someone else</em> first.</h1>
-    <p class="hero-sub">Day Zero puts a real incident in front of your workforce every morning. The cause, the lesson, and one action that prevents it on your site today. Reviewed by our HSE team, and built into a dated training record you can defend to any auditor.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Request a Pilot</button>
-      <button class="btn-ghost" onclick="document.getElementById('sample').scrollIntoView({behavior:'smooth'})">See Today's Brief ↓</button>
-    </div>
+    <style>@media(max-width:900px){.hero-grid{grid-template-columns:1fr !important;gap:2rem !important}}</style>
     <div class="hero-stats">
       <div class="stat-block"><div class="stat-num" style="font-size:1.5rem;letter-spacing:.04em">Daily</div><div class="stat-lbl">Safety brief, every morning</div></div>
       <div class="stat-block"><div class="stat-num" style="font-size:1.5rem;letter-spacing:.04em">Decades</div><div class="stat-lbl">of HSE experience</div></div>
@@ -194,10 +201,7 @@ footer{background:#060810;padding:2rem}
           </div>
         </div>
       </div>
-      <div class="brief-curator">
-        <div class="cur-av">GS</div>
-        <div><div class="cur-name">Day Zero Editorial Team</div><div class="cur-role">Led by Engr G A Shittu · decades of HSE experience</div></div>
-      </div>
+
     </div>
   </div>
 </section>
