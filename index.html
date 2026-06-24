@@ -130,7 +130,7 @@ footer{background:#060810;padding:2rem}
     <div class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></div>
     <span class="nav-name">DAY <span>ZERO</span></span>
   </div>
-  <a href="/analyse" style="color:white;text-decoration:none;font-size:0.95rem;font-weight:600;margin-right:1.5rem">Incident Analyser</a><button class="nav-cta" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Request Pilot</button>
+  <a href="/analyse" style="color:white;text-decoration:none;font-size:0.95rem;font-weight:600;margin-right:1.5rem">Incident Analyser</a><button class="nav-cta" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Receive the Brief</button>
 </nav>
 <div id="crude-ticker" style="background:#0E1528;border-bottom:1px solid var(--border);padding:8px 2rem;display:flex;align-items:center;justify-content:center;gap:2rem;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.04em">
   <span style="color:var(--mist)">CRUDE</span>
@@ -159,7 +159,7 @@ footer{background:#060810;padding:2rem}
         <h1 class="hero-headline" style="font-size:clamp(2.25rem,4.5vw,4rem);margin-bottom:1.25rem">The incident that ends a career happened to <em>someone else</em> first.</h1>
         <p class="hero-sub" style="margin-bottom:2rem">Day Zero puts a real incident in front of your workforce every morning. The cause, the lesson, and one action that prevents it on your site today. Reviewed by our HSE team, and built into a dated training record you can defend to any auditor.</p>
         <div class="hero-actions">
-          <button class="btn-primary" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Request a Pilot</button>
+          <button class="btn-primary" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'})">Receive Today's Brief →</button>
           <button class="btn-ghost" onclick="document.getElementById('sample').scrollIntoView({behavior:'smooth'})">See Today's Brief ↓</button>
         </div>
       </div>
@@ -201,7 +201,7 @@ footer{background:#060810;padding:2rem}
             <div style="background:rgba(14,21,40,0.04);border:1px solid #D8D5CF;border-radius:8px;padding:1.5rem;max-width:420px">
               <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:8px">Immediate cause · Contributing factors · Root cause · Lesson · Action</div>
               <p style="font-size:0.9rem;color:#5A6A7E;line-height:1.65;margin-bottom:1rem">The full investigation is delivered to your team each morning. Start a pilot to receive it.</p>
-              <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request&cc=gshittu@dayzero.energy&cc=gshittu@dayzero.energy" class="btn-primary" style="display:inline-block;text-decoration:none;font-size:13px;padding:10px 22px">Request a Pilot to Unlock →</a>
+              <a href="#subscribe" onclick="document.getElementById('subscribe').scrollIntoView({behavior:'smooth'});return false;" class="btn-primary" style="display:inline-block;text-decoration:none;font-size:13px;padding:10px 22px">Receive Today's Brief →</a>
             </div>
           </div>
         </div>
@@ -224,9 +224,13 @@ footer{background:#060810;padding:2rem}
 <section class="pricing-section" id="subscribe">
   <div class="container" style="max-width:680px;text-align:center">
     <div class="section-label" style="color:var(--gold)">Start Here</div>
-    <h2 class="section-title" style="color:white;font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:1rem">Start with a pilot.</h2>
-    <p style="color:var(--mist);font-size:1.05rem;line-height:1.8;margin-bottom:2.5rem">We run Day Zero live with your team. Real briefs, every morning, at no cost for the pilot window. You see the discipline it builds and the record it creates before any commitment. We extend the pilot to a limited number of operations at a time.</p>
-    <a href="mailto:team@dayzero.energy?subject=Day%20Zero%20Pilot%20Request&cc=gshittu@dayzero.energy&cc=gshittu@dayzero.energy" class="btn-primary" style="display:inline-block;text-decoration:none">Request Your Free Pilot</a>
+    <h2 class="section-title" style="color:white;font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:1rem">Receive the safety brief today.</h2>
+    <p style="color:var(--mist);font-size:1.05rem;line-height:1.8;margin-bottom:2.5rem">For HSE Directors, Chief Operating Officers, and CFOs of upstream operators. Today's brief arrives in your inbox in minutes; the Day Zero Managing Director follows up within 72 hours with subscription terms calibrated for your operation.</p>
+    <form id="trial-form" onsubmit="submitTrialForm(event)" style="display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:480px;margin:0 auto">
+      <input type="email" id="trial-email" required placeholder="Your work email" style="width:100%;padding:14px 18px;font-size:1rem;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);color:white;border-radius:4px;box-sizing:border-box" />
+      <button type="submit" class="btn-primary" style="width:100%;font-size:1rem;padding:14px 18px" id="trial-submit">Receive the Brief →</button>
+    </form>
+    <div id="trial-thankyou" style="display:none;color:var(--mist);font-size:1rem;line-height:1.7;margin-top:1.5rem"></div>
     <p style="color:var(--mist);font-size:0.85rem;margin-top:1.5rem;opacity:0.7">Or write to us at team@dayzero.energy</p>
   </div>
 </section>
@@ -302,6 +306,44 @@ fetch("https://api.dayzero.energy/market/today-brief")
     if (locEl && d.location) locEl.textContent = d.location;
   })
   .catch(function(){});
+</script>
+
+<script>
+async function submitTrialForm(e) {
+  e.preventDefault();
+  const email = document.getElementById('trial-email').value.trim();
+  const btn = document.getElementById('trial-submit');
+  const thankyou = document.getElementById('trial-thankyou');
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    const res = await fetch('https://api.dayzero.energy/trial/request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      const domain = email.split('@')[1] || '';
+      const company = data.company || domain;
+      document.getElementById('trial-form').style.display = 'none';
+      thankyou.style.display = 'block';
+      thankyou.innerHTML = 'Today's brief is on its way to <strong style="color:white">' + email + '</strong>. The Day Zero Managing Director will follow up within 72 hours to confirm subscription terms for <strong style="color:white">' + company + '</strong>.';
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Receive the Brief →';
+      alert(data.error || 'Something went wrong. Please try again.');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Receive the Brief →';
+    alert('Could not reach the server. Please try again.');
+  }
+}
 </script>
 </body>
 </html>
