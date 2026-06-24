@@ -308,6 +308,36 @@ fetch("https://api.dayzero.energy/market/today-brief")
   .catch(function(){});
 </script>
 
+
+<script>
+(async function loadTeaser() {
+  try {
+    const res = await fetch('https://api.dayzero.energy/briefs/latest-teaser');
+    const data = await res.json();
+    if (!data.teaser) return;
+
+    const t = data.teaser;
+    const parts = (t.email_subject || '').split(' · ');
+    const incidentTitle = parts[0] || '';
+    const dateStr = t.scheduled_date
+      ? new Date(t.scheduled_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+      : 'Today';
+
+    const chipEl = document.getElementById('teaser-chip');
+    const titleEl = document.getElementById('teaser-title');
+    const locEl = document.getElementById('teaser-loc');
+    const textEl = document.getElementById('teaser-text');
+
+    if (chipEl) chipEl.textContent = 'Edition ' + t.edition + ' · ' + dateStr;
+    if (titleEl) titleEl.textContent = incidentTitle;
+    if (locEl) locEl.textContent = incidentTitle.split(',').slice(-1)[0].trim();
+    if (textEl) textEl.textContent = 'Full investigation available to subscribers. Today's brief covers the immediate cause, contributing factors, root cause, lesson learned, and one action your team can apply before the next shift.';
+  } catch (e) {
+    console.log('Teaser load failed:', e.message);
+  }
+})();
+</script>
+
 <script>
 async function submitTrialForm(e) {
   e.preventDefault();
