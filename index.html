@@ -312,7 +312,7 @@ fetch("https://api.dayzero.energy/market/today-brief")
 <script>
 (async function loadTeaser() {
   try {
-    const res = await fetch('https://api.dayzero.energy/briefs/latest-teaser');
+    const res = await fetch('https://api.dayzero.energy/briefs/latest-teaser?t=' + Date.now());
     const data = await res.json();
     if (!data.teaser) return;
 
