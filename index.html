@@ -331,7 +331,7 @@ fetch("https://api.dayzero.energy/market/today-brief")
     if (chipEl) chipEl.textContent = 'Edition ' + t.edition + ' · ' + dateStr;
     if (titleEl) titleEl.textContent = incidentTitle;
     if (locEl) locEl.textContent = incidentTitle.split(',').slice(-1)[0].trim();
-    if (textEl) textEl.textContent = 'Full investigation available to subscribers. Today's brief covers the immediate cause, contributing factors, root cause, lesson learned, and one action your team can apply before the next shift.';
+    if (textEl) textEl.textContent = 'Full investigation available to subscribers. Today\'s brief covers the immediate cause, contributing factors, root cause, lesson learned, and one action your team can apply before the next shift.';
   } catch (e) {
     console.log('Teaser load failed:', e.message);
   }
