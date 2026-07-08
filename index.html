@@ -210,6 +210,56 @@ footer{background:#060810;padding:2rem}
     </div>
   </div>
 </section>
+<section id="september9" style="background:#0D1F3C;padding:4.5rem 2rem;border-top:3px solid #C0392B;">
+  <div style="max-width:640px;margin:0 auto;text-align:center;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;">Road to September 9</div>
+    <div style="font-size:3.2rem;font-weight:800;color:#ffffff;line-height:1;margin-bottom:0.25rem;"><span id="s9-days">--</span> DAYS</div>
+    <div style="font-size:0.95rem;color:rgba(255,255,255,0.65);margin-bottom:1.75rem;">until Nigeria&rsquo;s decommissioning submission deadline</div>
+    <div style="font-family:Georgia,serif;font-style:italic;font-size:1.25rem;color:#ffffff;line-height:1.5;margin-bottom:1.75rem;">If the Commission requested your D&amp;A Plan tomorrow, could you defend it?</div>
+    <p style="font-size:0.95rem;color:rgba(255,255,255,0.75);line-height:1.7;margin-bottom:2rem;">One executive briefing every Tuesday until the deadline: what the regulations demand, what the Commission will scrutinise, and the one boardroom question worth asking that week.</p>
+    <form id="s9-form" onsubmit="submitSept9(event)" style="display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:440px;margin:0 auto;">
+      <input type="email" id="s9-email" required placeholder="Your work email" style="width:100%;padding:14px 18px;font-size:1rem;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);color:white;border-radius:4px;box-sizing:border-box" />
+      <button type="submit" id="s9-submit" class="btn-primary" style="width:100%;font-size:1rem;padding:14px 18px;background:var(--gold);color:#0D1F3C;border:none;">Get the Weekly Briefing &rarr;</button>
+    </form>
+    <div id="s9-thankyou" style="display:none;color:rgba(255,255,255,0.8);font-size:1rem;line-height:1.7;margin-top:1.5rem;"></div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var deadline = new Date("2026-09-09T00:00:00+01:00");
+  var days = Math.max(0, Math.ceil((deadline - new Date()) / 86400000));
+  var el = document.getElementById("s9-days");
+  if (el) el.textContent = String(days);
+})();
+async function submitSept9(e) {
+  e.preventDefault();
+  var btn = document.getElementById("s9-submit");
+  var email = document.getElementById("s9-email").value;
+  btn.disabled = true; btn.textContent = "Subscribing…";
+  try {
+    var res = await fetch("https://api.dayzero.energy/subscribe/sept9", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email })
+    });
+    var data = await res.json();
+    if (data.subscribed) {
+      document.getElementById("s9-form").style.display = "none";
+      var t = document.getElementById("s9-thankyou");
+      t.textContent = "You’re on the list. The next edition arrives Tuesday, 1:00 PM WAT — check your inbox for confirmation.";
+      t.style.display = "block";
+    } else {
+      btn.disabled = false; btn.textContent = "Get the Weekly Briefing →";
+      alert(data.error || "Something went wrong — please try again.");
+    }
+  } catch (err) {
+    btn.disabled = false; btn.textContent = "Get the Weekly Briefing →";
+    alert("Network error — please try again.");
+  }
+}
+</script>
+
 <section class="how-section">
   <div class="container">
     <div class="section-label" style="color:var(--gold)">How It Works</div>
@@ -362,7 +412,7 @@ async function submitTrialForm(e) {
       const company = data.company || domain;
       document.getElementById('trial-form').style.display = 'none';
       thankyou.style.display = 'block';
-      thankyou.innerHTML = 'Today's brief is on its way to <strong style="color:white">' + email + '</strong>. The Day Zero Managing Director will follow up within 72 hours to confirm subscription terms for <strong style="color:white">' + company + '</strong>.';
+      thankyou.innerHTML = 'Today\u2019s brief is on its way to <strong style="color:white">' + email + '</strong>. The Day Zero Managing Director will follow up within 72 hours to confirm subscription terms for <strong style="color:white">' + company + '</strong>.';
     } else {
       btn.disabled = false;
       btn.textContent = 'Receive the Brief →';
