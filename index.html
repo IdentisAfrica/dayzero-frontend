@@ -427,5 +427,15 @@ async function submitTrialForm(e) {
   }
 }
 </script>
+<script>
+(function(){
+  var t = sessionStorage.getItem('dz_scroll_to');
+  if (t) {
+    sessionStorage.removeItem('dz_scroll_to');
+    var el = document.getElementById(t);
+    if (el) setTimeout(function(){ el.scrollIntoView({behavior:'smooth',block:'start'}); }, 60);
+  }
+})();
+</script>
 </body>
 </html>
