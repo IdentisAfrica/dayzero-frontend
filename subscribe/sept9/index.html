@@ -5,14 +5,93 @@
 <title>Road to September 9 · Subscribe · Day Zero Energy</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Subscribe to Road to September 9, the weekly executive briefing on Nigeria's decommissioning countdown from Day Zero Energy Limited.">
-<style>body{background:#0D1F3C;color:#fff;font-family:system-ui,sans-serif;padding:3rem 2rem;text-align:center;}a{color:#C49A2E;}</style>
-<script>
-  sessionStorage.setItem("dz_scroll_to", "september9");
-  window.location.replace("/");
-</script>
+<link rel="preconnect" href="https://api.dayzero.energy">
+<style>
+  :root { --gold:#C49A2E; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:#0D1F3C; color:#fff; font-family:system-ui,-apple-system,'Segoe UI',sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+  header { background:#fff; padding:0; }
+  header img { display:block; width:100%; max-width:100%; height:auto; }
+  main { flex:1; padding:3rem 1.5rem 4rem; }
+  .box { max-width:640px; margin:0 auto; text-align:center; }
+  .kicker { font-family:'Barlow Condensed',sans-serif; font-size:0.95rem; font-weight:700; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
+  .title { font-family:'Barlow Condensed',sans-serif; font-size:1.8rem; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; color:#C0392B; margin-bottom:0.6rem; }
+  .rule { width:64px; height:3px; background:rgba(255,255,255,0.85); margin:0 auto 1.25rem; }
+  .days { font-size:3.2rem; font-weight:800; line-height:1; margin-bottom:0.25rem; }
+  .until { font-size:0.95rem; color:rgba(255,255,255,0.65); margin-bottom:1.75rem; }
+  .quote { font-family:Georgia,serif; font-style:italic; font-size:1.25rem; line-height:1.5; margin-bottom:1.5rem; }
+  .promise { color:rgba(255,255,255,0.82); line-height:1.6; margin-bottom:2rem; }
+  form { display:flex; flex-direction:column; gap:0.75rem; max-width:420px; margin:0 auto; }
+  input { width:100%; padding:0.95rem 1rem; border:1px solid rgba(255,255,255,0.25); background:rgba(255,255,255,0.05); color:#fff; font-size:1rem; border-radius:4px; font-family:inherit; }
+  input::placeholder { color:rgba(255,255,255,0.55); }
+  input:focus { outline:none; border-color:var(--gold); background:rgba(255,255,255,0.09); }
+  button { padding:1rem 1.5rem; background:var(--gold); color:#0D1F3C; border:0; font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; border-radius:4px; cursor:pointer; }
+  button:disabled { opacity:0.55; cursor:wait; }
+  .msg { margin-top:1.25rem; padding:0.9rem 1rem; border-radius:4px; font-size:0.98rem; display:none; }
+  .msg.ok { display:block; background:rgba(196,154,46,0.14); border:1px solid var(--gold); color:#fff; }
+  .msg.err { display:block; background:rgba(192,57,43,0.18); border:1px solid #C0392B; color:#fff; }
+  footer { padding:1.5rem 1rem; text-align:center; font-size:0.78rem; color:rgba(255,255,255,0.5); border-top:1px solid rgba(255,255,255,0.08); }
+  footer a { color:var(--gold); text-decoration:none; }
+</style>
 </head>
 <body>
-<p>Loading the countdown…</p>
-<p>If it does not appear, <a href="/#september9">continue to subscribe</a>.</p>
+<header>
+  <img src="/letterhead-email.png" alt="Day Zero Energy Ltd · Executive Intelligence for Energy Leaders · RC 9610309 | team@dayzero.energy | dayzero.energy">
+</header>
+<main>
+  <div class="box">
+    <div class="kicker">NUPRC D&amp;A Regulations 2026</div>
+    <div class="title">Road to September 9</div>
+    <div class="rule"></div>
+    <div class="days"><span id="days">--</span> DAYS</div>
+    <div class="until">until Nigeria&rsquo;s decommissioning submission deadline</div>
+    <div class="quote">If the Commission requested your D&amp;A Plan tomorrow, could you defend it?</div>
+    <div class="promise">One executive briefing every Tuesday until the deadline: what the regulations demand, what the Commission will scrutinise, and the one boardroom question worth asking that week. Free.</div>
+    <form id="f">
+      <input id="email" type="email" required autocomplete="email" placeholder="Your work email">
+      <input id="name" type="text" autocomplete="name" placeholder="Your name (optional)">
+      <button id="b" type="submit">GET THE WEEKLY BRIEFING &rarr;</button>
+    </form>
+    <div id="m" class="msg"></div>
+  </div>
+</main>
+<footer>
+  Day Zero Energy Limited &middot; HSE Safety Intelligence &middot; <a href="mailto:team@dayzero.energy">team@dayzero.energy</a> &middot; <a href="https://dayzero.energy">dayzero.energy</a>
+</footer>
+<script>
+  var deadline = new Date("2026-09-09T00:00:00+01:00");
+  var d = Math.max(0, Math.ceil((deadline - new Date()) / 86400000));
+  document.getElementById("days").textContent = d;
+
+  var f = document.getElementById("f"), b = document.getElementById("b"), m = document.getElementById("m");
+  f.addEventListener("submit", async function(ev) {
+    ev.preventDefault();
+    var email = document.getElementById("email").value.trim();
+    var name = document.getElementById("name").value.trim();
+    if (!email) return;
+    b.disabled = true; b.textContent = "SUBMITTING…"; m.className = "msg"; m.textContent = "";
+    try {
+      var res = await fetch("https://api.dayzero.energy/subscribe/sept9", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, name: name || undefined })
+      });
+      var data = await res.json().catch(function(){ return {}; });
+      if (res.ok) {
+        m.className = "msg ok";
+        m.textContent = "You are on the list. Edition 2 arrives Tuesday.";
+        f.style.display = "none";
+      } else {
+        m.className = "msg err";
+        m.textContent = data.error || "Something went wrong. Please try again.";
+        b.disabled = false; b.textContent = "GET THE WEEKLY BRIEFING \u2192";
+      }
+    } catch (e) {
+      m.className = "msg err";
+      m.textContent = "Network error. Please try again.";
+      b.disabled = false; b.textContent = "GET THE WEEKLY BRIEFING \u2192";
+    }
+  });
+</script>
 </body>
 </html>
