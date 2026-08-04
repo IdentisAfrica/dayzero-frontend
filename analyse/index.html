@@ -13,7 +13,12 @@ html{scroll-behavior:smooth}
 body{font-family:'Barlow',sans-serif;background:var(--ink);color:var(--white);min-height:100vh;line-height:1.6}
 nav{padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--ink);z-index:50}
 .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.nav-mark{width:28px;height:28px;background:var(--red);border-radius:3px;display:flex;align-items:center;justify-content:center}
+.nav-plate{padding:5px 10px;background:#FCFBF8;border-radius:3px;display:flex;align-items:center}
+.nav-plate img{height:30px;width:auto;display:block}
+.method-row{margin-top:1.25rem}
+select.method-select{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:4px;padding:11px 13px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--white)}
+select.method-select:focus{outline:none;border-color:rgba(212,168,67,0.45)}
+select.method-select option{background:#0E1528;color:#fff}
 .nav-mark svg{width:14px;height:14px;fill:white}
 .nav-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:0.07em;color:white}
 .nav-name span{color:var(--gold)}
@@ -83,7 +88,7 @@ footer a{color:var(--fog);text-decoration:none}
 <body>
 <nav>
   <a href="https://dayzero.energy" class="nav-brand">
-    <span class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></span>
+    <span class="nav-plate"><img src="../logo-lockup.png" alt="Day Zero"></span>
     <span class="nav-name">DAY ZERO<span> · HSE</span></span>
   </a>
   <div class="nav-right">
@@ -105,6 +110,20 @@ footer a{color:var(--fog);text-decoration:none}
     <label class="input-label" for="gate-email" style="margin-top:1.5rem">Your work email</label>
     <input type="email" class="gate-input" id="gate-email" placeholder="you@yourcompany.com">
     <div class="char-hint">Your full analysis report is sent here.</div>
+
+    <div class="method-row">
+      <label class="input-label" for="method-select">Analytical framework</label>
+      <select class="method-select" id="method-select">
+        <option value="">Let Day Zero choose the framework that fits</option>
+        <option value="five_why">5-Why &middot; linear causal chain</option>
+        <option value="fishbone">Fishbone (Ishikawa) &middot; dispersed contributing causes</option>
+        <option value="bow_tie">Bow-Tie &middot; barriers either side of a release</option>
+        <option value="fault_tree">Fault Tree &middot; conditions that had to coincide</option>
+        <option value="tripod_beta">TRIPOD Beta &middot; organisational latency behind unsafe acts</option>
+        <option value="icam">ICAM &middot; layered defences, actions, conditions, organisation</option>
+      </select>
+      <div class="char-hint" style="text-align:left">All six are analysed either way. This chooses which diagram is drawn in your report.</div>
+    </div>
 
     <button class="btn-analyse" id="analyse-btn">
       <span id="analyse-btn-text">Analyse Incident</span>
@@ -189,7 +208,7 @@ document.getElementById("analyse-btn").addEventListener("click", function () {
   fetch(API + "/analyse/send-code", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email: email, description: desc })
+    body: JSON.stringify({ email: email, description: desc, methodology: (document.getElementById("method-select") || {}).value || "" })
   })
     .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
     .then(function (r) {
