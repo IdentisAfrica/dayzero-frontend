@@ -266,7 +266,7 @@ document.getElementById("verify-code-btn").addEventListener("click", function ()
   fetch(API + "/analyse/verify-and-analyse", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ submission_id: submissionId, code: code })
+    body: JSON.stringify({ submission_id: submissionId, code: code, methodology: (document.getElementById("method-select") || {}).value || "" })
   })
     .then(function (res) { return res.json().then(function (data) { return { ok: res.ok, data: data }; }); })
     .then(function (r) {
