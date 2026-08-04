@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A screening-level decommissioning and abandonment cost estimate for your asset, priced obligation by obligation against S.I. 15 of 2026, with every unpriceable obligation disclosed rather than hidden.">
+<title>Decommissioning &amp; Abandonment Cost Estimates · Day Zero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D2241;--navy2:#16305A;--gold:#C9A227;--crimson:#A2172B;
+  --paper:#FCFBF8;--panel:#F4F2EB;--ink:#1B222E;--muted:#59606D;--rule:#E3E1D7;
+  --serif:'Lora',Georgia,'Times New Roman',serif;
+  --sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--serif);background:var(--paper);color:var(--ink);
+     font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+/* apparatus: nav, labels, tables, buttons */
+nav{padding:14px 32px;display:flex;align-items:center;justify-content:space-between;
+    border-bottom:3px solid var(--gold);position:sticky;top:0;background:var(--navy);z-index:50}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-mark{width:26px;height:26px;background:var(--gold);border-radius:2px;display:flex;align-items:center;justify-content:center}
+.nav-mark svg{width:13px;height:13px;fill:var(--navy)}
+.nav-name{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:0.09em;color:#fff}
+.nav-name span{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:26px}
+.nav-link{font-family:var(--sans);color:#C3CAD8;text-decoration:none;font-size:13.5px;letter-spacing:0.01em}
+.nav-link:hover{color:#fff}
+.nav-cta{font-family:var(--sans);background:var(--gold);color:var(--navy);padding:8px 17px;border-radius:2px;
+         font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none}
+.nav-cta:hover{background:#B8931F}
+
+.wrap{max-width:730px;margin:0 auto;padding:0 32px}
+
+/* hero */
+.hero{padding:76px 0 12px}
+.eyebrow{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+         color:var(--crimson);display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.eyebrow::before{content:'';width:30px;height:2px;background:var(--gold)}
+h1{font-family:var(--serif);font-size:clamp(2.15rem,4.6vw,3.05rem);font-weight:600;line-height:1.16;
+   color:var(--navy);letter-spacing:-0.015em;margin-bottom:24px;max-width:16ch}
+h1 em{color:var(--crimson);font-style:italic;font-weight:500}
+.deck{font-size:1.16rem;line-height:1.68;color:var(--muted);max-width:60ch;margin-bottom:34px}
+.deck strong{color:var(--ink);font-weight:600}
+.btnrow{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--sans);display:inline-block;padding:14px 30px;border-radius:2px;font-size:13.5px;
+     font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background .15s,color .15s}
+.btn-primary{background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(13,34,65,0.16)}
+.btn-primary:hover{background:var(--navy2)}
+.btn-ghost{background:transparent;color:var(--navy);border:1px solid rgba(13,34,65,0.35)}
+.btn-ghost:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.deadline{font-family:var(--sans);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+          margin-top:44px;padding:14px 0;font-size:13.5px;line-height:1.6;color:var(--muted);
+          display:flex;gap:9px;flex-wrap:wrap;align-items:baseline}
+.deadline b{color:var(--crimson);font-weight:600;font-size:15px;letter-spacing:0.02em}
+
+/* sections */
+section{padding:52px 0 8px}
+h2{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+   color:var(--navy);margin-bottom:20px;padding-bottom:9px;border-bottom:1px solid var(--rule)}
+h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--navy);line-height:1.32;
+   letter-spacing:-0.01em;margin-bottom:16px;max-width:32ch}
+p{font-size:1.02rem;color:var(--muted);line-height:1.8;margin-bottom:18px;max-width:66ch}
+p strong{color:var(--ink);font-weight:600}
+p.last{margin-bottom:0}
+
+/* the extract table: reads as a cost schedule, not a web table */
+table.extract{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;background:#fff;
+              border:1px solid var(--rule);margin:6px 0 12px;font-variant-numeric:tabular-nums}
+table.extract th{background:var(--panel);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;text-align:left;padding:11px 13px;border-bottom:1px solid var(--rule)}
+table.extract th.num,table.extract td.num{text-align:right}
+table.extract td{padding:11px 13px;border-bottom:1px solid #F1EFE8;color:var(--ink);line-height:1.45}
+table.extract tbody tr:nth-child(even) td{background:#FCFBF8}
+table.extract td.ref{font-size:12px;letter-spacing:0.08em;color:var(--muted);white-space:nowrap}
+table.extract tr.total td{border-top:2px solid var(--navy);border-bottom:none;font-weight:600;background:var(--panel)}
+table.extract tr.gap td{background:rgba(162,23,43,0.045);color:var(--crimson);border-bottom:none;font-size:12.5px}
+.tnote{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:0.01em}
+
+/* blocks and lists */
+.card{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--navy);
+      border-radius:2px;padding:26px 30px;margin-bottom:14px}
+.card p:last-child{margin-bottom:0}
+ul{list-style:none}
+li{font-size:1.01rem;color:var(--muted);line-height:1.75;padding-left:24px;position:relative;margin-bottom:13px;max-width:64ch}
+li::before{content:'';position:absolute;left:0;top:13px;width:10px;height:2px;background:var(--gold)}
+li strong{color:var(--ink);font-weight:600}
+li:last-child{margin-bottom:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.grid2 li{max-width:none}
+.steps{counter-reset:s;margin-top:4px}
+.steps li{counter-increment:s;padding-left:52px;margin-bottom:26px;min-height:34px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;background:var(--navy);
+                  border-radius:50%;color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;
+                  display:flex;align-items:center;justify-content:center}
+.steps li b{display:block;font-family:var(--sans);color:var(--navy);font-size:12px;font-weight:600;
+            letter-spacing:0.16em;text-transform:uppercase;margin-bottom:5px}
+
+.specimen{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;background:#fff;
+          border:1px solid var(--rule);border-top:3px solid var(--gold);padding:26px 30px;
+          box-shadow:0 1px 4px rgba(13,34,65,0.05)}
+.specimen div{flex:1;min-width:260px}
+.specimen p{margin:0;font-size:1rem;max-width:none}
+
+/* closing band */
+.ctaband{background:var(--navy);color:#fff;margin-top:56px;padding:66px 0}
+.ctaband h3{color:#fff;max-width:26ch;margin-bottom:14px}
+.ctaband p{color:#B9C2D2;max-width:54ch;margin-bottom:26px}
+.ctaband .btn-gold{background:var(--gold);color:var(--navy)}
+.ctaband .btn-gold:hover{background:#B8931F}
+.ctaband small{font-family:var(--sans);display:block;margin-top:20px;font-size:12.5px;color:#8C96A9;letter-spacing:0.01em}
+
+.limits{font-family:var(--sans);font-size:12.5px;color:var(--muted);line-height:1.85;padding:44px 0;max-width:74ch}
+footer{font-family:var(--sans);border-top:1px solid var(--rule);background:var(--panel);padding:30px;
+       text-align:center;font-size:12.5px;color:var(--muted);letter-spacing:0.01em}
+footer a{color:var(--navy);text-decoration:none;font-weight:500}
+
+@media(max-width:640px){
+  body{font-size:16px}
+  nav{padding:12px 20px}
+  .nav-right{gap:16px}
+  .wrap{padding:0 22px}
+  .hero{padding:48px 0 8px}
+  h1{max-width:none}
+  .grid2{grid-template-columns:1fr;gap:0}
+  .btn{width:100%;text-align:center}
+  .ctaband{padding:48px 0}
+  table.extract{font-size:12px}
+  table.extract td,table.extract th{padding:9px 10px}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="https://dayzero.energy" class="nav-brand">
+    <span class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></span>
+    <span class="nav-name">DAY ZERO<span> · HSE</span></span>
+  </a>
+  <div class="nav-right">
+    <a href="https://dayzero.energy" class="nav-link">Home</a>
+    <a href="#request" class="nav-cta">Request Estimate</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Decommissioning &amp; Abandonment Advisory</div>
+    <h1>What will decommissioning and abandonment <em>actually</em> cost?</h1>
+    <p class="deck">A Decommissioning and Abandonment Plan must state the amount to be contributed annually to the D&amp;A Fund. That figure rests on a cost estimate, and the estimate rests on knowing what you actually have to remove. <strong>Send us your well schedule and facilities register. We price it obligation by obligation, and we tell you plainly what could not be priced and why.</strong></p>
+    <div class="btnrow">
+      <a href="#request" class="btn btn-primary">Request an Estimate</a>
+      <a href="../assets/decommissioning-cost-estimate-specimen.pdf" class="btn btn-ghost">View a Specimen</a>
+    </div>
+    <div class="deadline">
+      <b id="days">&nbsp;</b>
+      <span>to the 9 September 2026 submission deadline for existing licences and leases, under Regulation 3(5)(c) of S.I. 15 of 2026.</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>The number is only half the answer</h2>
+    <h3>An estimate that hides its gaps is worth less than one that names them.</h3>
+    <p>Any consultant can produce a total. The harder question, and the one a reviewer will ask, is what the total leaves out. Every obligation we cannot price defensibly is listed with the specific reason, so the estimate understates the liability by an amount you can see rather than by an amount you cannot.</p>
+    <table class="extract">
+      <thead>
+        <tr><th>Ref</th><th>Obligation</th><th class="num">Low</th><th class="num">Most likely</th><th class="num">High</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="ref">WPA-01</td><td>Well plug and abandonment, rig-based</td><td class="num">$600,000</td><td class="num">$2,100,000</td><td class="num">$6,000,000</td></tr>
+        <tr><td class="ref">OFD-01</td><td>Flowstation demolition and removal</td><td class="num">$250,000</td><td class="num">$600,000</td><td class="num">$1,400,000</td></tr>
+        <tr><td class="ref">SRR-01</td><td>Site remediation and restoration to close-out</td><td class="num">$60,000</td><td class="num">$300,000</td><td class="num">$1,200,000</td></tr>
+        <tr class="total"><td class="ref"></td><td>Estimate total</td><td class="num">$2,048,913</td><td class="num">$5,786,932</td><td class="num">$15,339,286</td></tr>
+        <tr class="gap"><td class="ref">MDR-01</td><td colspan="4">Not priced: disposal and recycling of recovered materials. No tonnage in the asset documentation supplied.</td></tr>
+      </tbody>
+    </table>
+    <p class="tnote">Extract from the specimen estimate. Synthetic field, illustrative figures.</p>
+  </section>
+
+  <section>
+    <h2>What you receive</h2>
+    <div class="card">
+      <ul>
+        <li><strong>A priced schedule</strong> of the obligations the Regulations attach to your asset, each line carrying a low, most likely and high figure, its source, its price basis year, and how its quantity was derived.</li>
+        <li><strong>A disclosed list of what could not be priced</strong>, with the specific reason for each. Nothing is silently included and nothing is silently dropped.</li>
+        <li><strong>A document built to the conventions a reviewer expects</strong>: document number and revision status, basis of estimate, methodology, limitations, and a prepared, reviewed and approved strip left blank for your own sign-off.</li>
+        <li><strong>Full provenance.</strong> Engine version, model version and run identifier are printed on the document, so the same identifiers reproduce the same estimate exactly.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <ul class="steps">
+      <li><b>You send what you hold</b>A well schedule and facilities register is the usual form. Whatever exists is enough to begin.</li>
+      <li><b>We price it</b>We extract the asset picture, identify the D&amp;A obligations that attach to it, and price the ones carrying a defensible cost basis.</li>
+      <li><b>You get the estimate and the gap list</b>The gap list is often the more useful half. It names exactly which records would move the number.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What we need from you</h2>
+    <div class="card">
+      <ul class="grid2">
+        <li>Well count and status, or a well schedule</li>
+        <li>Facilities: flowstations, plants, terminals, storage</li>
+        <li>Pipelines and flowlines, lengths and diameters</li>
+        <li>Terrain, location and installation year</li>
+        <li>Planned cessation of production date</li>
+        <li>Any existing D&amp;A plan or prior estimate</li>
+      </ul>
+    </div>
+    <p class="last">Missing items are not an obstacle. Anything absent is disclosed as an unpriced obligation with its reason, rather than filled in with an assumption.</p>
+  </section>
+
+  <section>
+    <div class="specimen">
+      <div><p><strong style="color:#0D2241">See a complete estimate first.</strong> A full document on a synthetic field, in exactly the form you would receive it.</p></div>
+      <a href="../assets/decommissioning-cost-estimate-specimen.pdf" class="btn btn-primary">View Specimen</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>Your documents</h2>
+    <div class="card">
+      <p class="last">Asset documentation is confidential and treated as such. It is used only to produce your estimate, it is not shared with third parties, and it is deleted on request. If you would prefer a non-disclosure agreement in place before sending anything, say so in your first email and we will handle that first.</p>
+    </div>
+  </section>
+</div>
+
+<div class="ctaband" id="request">
+  <div class="wrap">
+    <h3>Send the register. Get the number, and the list of what it leaves out.</h3>
+    <p>Attach whatever asset documentation you hold. We will confirm what we can price from it before any work begins.</p>
+    <a class="btn btn-gold" href="mailto:team@dayzero.energy?subject=Screening-level%20D%26A%20cost%20estimate&body=Asset%20or%20field%3A%20%0AOperator%3A%20%0ATerrain%20(onshore%20or%20offshore)%3A%20%0A%0AAsset%20documentation%20attached.">Request an Estimate</a>
+    <small>Or email team@dayzero.energy directly, with your asset documentation attached.</small>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="limits">
+    A screening-level estimate is prepared from the asset documentation supplied and from public regulatory and benchmarking sources. It is not a bid, a quotation, or a guarantee of outturn cost. It does not constitute engineering design or a regulatory submission, and it is not legal or financial advice. Outturn costs depend on execution strategy, contractor market conditions, and regulatory determinations outside its scope.
+  </div>
+</div>
+
+<footer>
+  Day Zero Energy Limited · RC 9610309 · <a href="mailto:team@dayzero.energy">team@dayzero.energy</a> · <a href="https://dayzero.energy">dayzero.energy</a>
+</footer>
+
+<script>
+(function(){
+  var d = Math.ceil((new Date(2026,8,9) - new Date()) / 86400000);
+  var el = document.getElementById('days');
+  el.textContent = d > 0 ? (d + (d === 1 ? ' day' : ' days')) : 'Passed';
+  if (d <= 0) { el.nextElementSibling.textContent = 'The 9 September 2026 submission deadline under Regulation 3(5)(c) of S.I. 15 of 2026 has passed.'; }
+})();
+</script>
+</body>
+</html>
