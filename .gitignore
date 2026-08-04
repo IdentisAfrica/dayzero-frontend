@@ -5,3 +5,7 @@ index.html.bak.*
 build.py.bak.*
 .DS_Store
 *.bak*
+
+*.bak
+*.bak.*
+.DS_Store
