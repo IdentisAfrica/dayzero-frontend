@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thank you · Day Zero Energy</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A0F1E;--red:#C42B1C;--gold:#D4A843;--mist:#8A9BB0;--white:#FFFFFF;--border:rgba(255,255,255,0.10)}
+body{font-family:'Barlow',sans-serif;background:var(--ink);color:var(--white);min-height:100vh;display:flex;flex-direction:column}
+nav{padding:1.1rem 2rem;display:flex;align-items:center;border-bottom:1px solid var(--border)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-brand img{height:30px;width:auto;display:block}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:0.06em;color:white}
+.nav-name span{color:var(--gold)}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:4rem 2rem;position:relative}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 40%,rgba(196,43,28,0.12) 0%,transparent 70%);pointer-events:none}
+.card{position:relative;max-width:560px;width:100%;text-align:center}
+.label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;margin-bottom:1.25rem}
+h1 em{color:var(--gold);font-style:italic}
+p{color:var(--mist);font-size:1.05rem;line-height:1.75}
+p+p{margin-top:1rem}
+.ref{margin-top:1.5rem;font-size:0.85rem;color:var(--mist);opacity:0.8;word-break:break-all}
+.actions{margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{background:var(--red);color:white;text-decoration:none;padding:14px 28px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.25)}
+[hidden]{display:none !important}
+footer{border-top:1px solid var(--border);padding:1.5rem 2rem;text-align:center;color:var(--mist);font-size:0.85rem}
+footer a{color:var(--mist);text-decoration:none;margin:0 8px}
+</style>
+</head>
+<body>
+<nav><a class="nav-brand" href="/"><img src="/logo-lockup.png" alt="Day Zero Energy"></a></nav>
+
+<main>
+  <div class="bg"></div>
+
+  <div class="card" id="ok">
+    <div class="label">Subscription confirmed</div>
+    <h1>Your first brief arrives <em>tomorrow at 9:00 AM WAT.</em></h1>
+    <p>Payment received. Your receipt is on its way from Flutterwave, and the Day Zero brief will reach the inbox you gave us every working day from tomorrow.</p>
+    <p>If it has not appeared by 9:30 AM WAT, check your spam or promotions folder first, then write to team@dayzero.energy and we will sort it out.</p>
+    <div class="ref" id="ref-ok" hidden></div>
+    <div class="actions">
+      <a class="btn" href="/#subscribe">Read today's brief</a>
+      <a class="btn ghost" href="/">Back to Day Zero</a>
+    </div>
+  </div>
+
+  <div class="card" id="pending" hidden>
+    <div class="label">Almost there</div>
+    <h1>We are confirming <em>your payment.</em></h1>
+    <p>Flutterwave has reported your payment as pending. Bank confirmations can take a few minutes. You do not need to do anything; the moment it clears, your subscription starts and the first brief arrives the next working morning.</p>
+    <div class="ref" id="ref-pending" hidden></div>
+    <div class="actions"><a class="btn ghost" href="/">Back to Day Zero</a></div>
+  </div>
+
+  <div class="card" id="cancelled" hidden>
+    <div class="label">Payment not completed</div>
+    <h1>No charge was made.</h1>
+    <p>The checkout was closed before payment finished. Nothing has been taken from your card. You can start again whenever you are ready.</p>
+    <div class="actions">
+      <a class="btn" href="/briefs">Back to plans</a>
+      <a class="btn ghost" href="mailto:team@dayzero.energy">Ask the team</a>
+    </div>
+  </div>
+</main>
+
+<footer><a href="/">Home</a>·<a href="/privacy.html">Privacy</a>·<a href="/terms.html">Terms</a>·<a href="mailto:team@dayzero.energy">team@dayzero.energy</a></footer>
+
+<script>
+(function () {
+  var q = new URLSearchParams(window.location.search);
+  var status = (q.get("status") || "").toLowerCase();
+  var ref = q.get("tx_ref");
+  var show = "ok";
+  if (status === "cancelled" || status === "canceled" || status === "failed") show = "cancelled";
+  else if (status === "pending") show = "pending";
+  ["ok", "pending", "cancelled"].forEach(function (id) {
+    document.getElementById(id).hidden = id !== show;
+  });
+  if (ref && show !== "cancelled") {
+    var el = document.getElementById("ref-" + show);
+    el.textContent = "Reference: " + ref;
+    el.hidden = false;
+  }
+})();
+</script>
+</body>
+</html>

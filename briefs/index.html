@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subscribe to the Daily Safety Brief · Day Zero Energy</title>
+<meta name="description" content="One real oil and gas incident every morning, investigated to root cause and reviewed by HSE professionals. Individual and corporate subscriptions in Naira or US dollars.">
+<link rel="icon" href="/favicon-32x32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://dayzero.energy/briefs">
+<meta property="og:title" content="Subscribe to the Daily Safety Brief · Day Zero Energy">
+<meta property="og:description" content="One real incident every morning, investigated to root cause. From ₦15,000 or $15 a month.">
+<meta property="og:image" content="https://dayzero.energy/og-image.png">
+<meta property="og:url" content="https://dayzero.energy/briefs">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#0A0F1E;--red:#C42B1C;--red2:#9B1F12;--gold:#D4A843;--slate:#2C3A52;--mist:#8A9BB0;--cream:#F5F2ED;--white:#FFFFFF;--border:rgba(255,255,255,0.10)}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden;line-height:1.5}
+a{color:inherit}
+.container{max-width:1100px;margin:0 auto;padding:0 2rem}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);backdrop-filter:blur(12px);background:rgba(10,15,30,0.85)}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-brand img{height:30px;width:auto;display:block}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:0.06em;color:white}
+.nav-name span{color:var(--gold)}
+.nav-links a{color:white;text-decoration:none;font-size:0.95rem;font-weight:600;margin-left:1.5rem}
+@media (max-width:640px){.nav-links{display:none}}
+
+.hero{padding:9rem 2rem 3rem;position:relative}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 30%,rgba(196,43,28,0.12) 0%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;max-width:760px}
+.section-label{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--red);margin-bottom:1rem}
+h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.08;margin-bottom:1.25rem}
+h1 em{color:var(--gold);font-style:italic}
+.lede{color:var(--mist);font-size:1.1rem;line-height:1.75;max-width:640px}
+
+.controls{padding:1.5rem 2rem 0}
+.controls-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:3px;overflow:hidden}
+.seg button{background:transparent;color:var(--mist);border:none;padding:10px 18px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
+.seg button[aria-pressed="true"]{background:rgba(255,255,255,0.08);color:white}
+.seg button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.seg-note{font-size:0.85rem;color:var(--mist)}
+.founding{display:inline-flex;align-items:center;gap:8px;background:rgba(212,168,67,0.12);border:1px solid rgba(212,168,67,0.35);color:var(--gold);padding:6px 12px;border-radius:2px;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase}
+.founding[hidden]{display:none}
+
+.email-bar{padding:1.5rem 2rem 0}
+.email-inner{max-width:1100px;margin:0 auto}
+.email-inner label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:8px}
+.email-inner input{width:100%;max-width:480px;padding:14px 18px;font-size:1rem;font-family:'Barlow',sans-serif;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);color:white;border-radius:4px}
+.email-inner input:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.email-inner input.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.email-help{font-size:0.85rem;color:var(--mist);margin-top:8px}
+
+.plans{padding:2rem 2rem 1rem}
+.plans-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.price-card{border:1px solid var(--border);border-radius:4px;padding:2rem;position:relative;display:flex;flex-direction:column;background:rgba(255,255,255,0.02)}
+.price-card.featured{border-color:var(--gold);border-width:1.5px}
+.feat-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:4px 14px;border-radius:2px;white-space:nowrap}
+.plan-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-bottom:1rem}
+.plan-price{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;line-height:1;color:white}
+.plan-price small{font-family:'Barlow',sans-serif;font-size:1rem;font-weight:500;color:var(--mist);margin-left:6px}
+.plan-was{font-size:0.95rem;color:var(--mist);margin-top:8px;min-height:1.4em}
+.plan-was s{opacity:0.7}
+.plan-was b{color:var(--gold);font-weight:600}
+.plan-seats{font-size:0.95rem;color:var(--mist);margin:1rem 0 1.25rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border)}
+.plan-list{list-style:none;margin-bottom:1.75rem;flex:1}
+.plan-list li{font-size:0.95rem;color:rgba(255,255,255,0.85);padding:5px 0 5px 20px;position:relative}
+.plan-list li::before{content:"";position:absolute;left:0;top:13px;width:8px;height:2px;background:var(--red)}
+.plan-btn{width:100%;background:transparent;color:white;border:1px solid rgba(255,255,255,0.3);padding:14px 18px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer}
+.price-card.featured .plan-btn{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.plan-btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.plan-btn[disabled]{opacity:0.6;cursor:wait}
+.plan-status{font-size:0.85rem;margin-top:10px;min-height:1.3em;color:var(--mist)}
+.plan-status.err{color:#F0A195}
+
+.enterprise{padding:0 2rem 2rem}
+.enterprise-inner{max-width:1100px;margin:0 auto;border:1px solid var(--border);border-radius:4px;padding:1.5rem 2rem;display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:center;justify-content:space-between}
+.enterprise-inner p{color:var(--mist);font-size:0.95rem;max-width:640px}
+.enterprise-inner p b{color:white;font-weight:600}
+.btn-ghost{background:transparent;color:white;border:1px solid rgba(255,255,255,0.25);padding:12px 24px;border-radius:3px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+
+.terms{padding:1rem 2rem 3rem}
+.terms-inner{max-width:1100px;margin:0 auto;color:var(--mist);font-size:0.85rem;line-height:1.7}
+.terms-inner p+p{margin-top:6px}
+
+.sample{padding:3rem 2rem;border-top:1px solid var(--border)}
+.sample-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+@media (max-width:800px){.sample-inner{grid-template-columns:1fr}}
+.sample h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:1rem}
+.sample p{color:var(--mist);line-height:1.75}
+.frame{border:1px solid var(--border);border-radius:4px;padding:1.5rem}
+.frame-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--red);border-left:3px solid var(--red);padding-left:10px;margin:1rem 0 6px}
+.frame-label:first-child{margin-top:0}
+.frame p{font-size:0.95rem;color:rgba(255,255,255,0.85)}
+
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--mist);font-size:0.85rem}
+footer a{color:var(--mist);text-decoration:none;margin:0 8px}
+footer a:hover{color:white}
+footer .note{max-width:680px;margin:10px auto 0;line-height:1.6;opacity:0.85}
+
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="/">
+    <img src="/logo-lockup.png" alt="Day Zero Energy">
+  </a>
+  <div class="nav-links">
+    <a href="/decommissioning">D&amp;A Cost Estimates</a>
+    <a href="/analyse">Incident Analyser</a>
+    <a href="/#subscribe">Today's Brief</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div class="section-label">Daily Safety Brief</div>
+    <h1>One real incident. Every morning. <em>Investigated to root cause.</em></h1>
+    <p class="lede">The Day Zero brief lands in your inbox at 9:00 AM WAT, every working day. A verified oil and gas incident taken through immediate cause, contributing factors, root cause, lesson and one action your team can apply before the next shift. Reviewed by HSE professionals led by Engr G A Shittu before it is sent.</p>
+  </div>
+</section>
+
+<section class="controls" aria-label="Billing options">
+  <div class="controls-inner">
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center">
+      <div class="seg" role="group" aria-label="Currency">
+        <button type="button" data-cur="NGN" aria-pressed="true">₦ Naira</button>
+        <button type="button" data-cur="USD" aria-pressed="false">$ US Dollar</button>
+      </div>
+      <div class="seg" role="group" aria-label="Billing interval">
+        <button type="button" data-int="monthly" aria-pressed="false">Monthly</button>
+        <button type="button" data-int="annual" aria-pressed="true">Annual</button>
+      </div>
+    </div>
+    <div class="founding" id="founding-badge">Founding year pricing until 1 October 2026</div>
+  </div>
+</section>
+
+<section class="email-bar">
+  <div class="email-inner">
+    <label for="buyer-email">Where should the brief be sent?</label>
+    <input id="buyer-email" type="email" autocomplete="email" inputmode="email" placeholder="Your work email" required>
+    <div class="email-help" id="email-help">Enter your email, then choose a plan below. Payment is taken securely by Flutterwave.</div>
+  </div>
+</section>
+
+<section class="plans">
+  <div class="plans-grid">
+
+    <article class="price-card" data-tier="individual">
+      <div class="plan-name">Individual</div>
+      <div class="plan-price" data-price>₦100,000<small>/ year</small></div>
+      <div class="plan-was" data-was></div>
+      <div class="plan-seats">One reader. One inbox.</div>
+      <ul class="plan-list">
+        <li>The daily brief, every working day at 9:00 AM WAT</li>
+        <li>Full investigation: cause, factors, root cause, lesson, action</li>
+        <li>Methodologies: RCA, 5-Why, Fishbone, HFACS</li>
+        <li>Cancel any time from your receipt email</li>
+      </ul>
+      <button type="button" class="plan-btn" data-buy>Subscribe</button>
+      <div class="plan-status" data-status></div>
+    </article>
+
+    <article class="price-card featured" data-tier="corporate">
+      <div class="feat-badge">Best value for teams</div>
+      <div class="plan-name">Corporate</div>
+      <div class="plan-price" data-price>₦400,000<small>/ year</small></div>
+      <div class="plan-was" data-was></div>
+      <div class="plan-seats">Up to ten readers in your organisation.</div>
+      <ul class="plan-list">
+        <li>Everything in Individual, for up to 10 inboxes</li>
+        <li>Add and remove readers as your team changes</li>
+        <li>A standing toolbox-talk record for your HSE file</li>
+        <li>Priced below three individual subscriptions</li>
+      </ul>
+      <button type="button" class="plan-btn" data-buy>Subscribe your team</button>
+      <div class="plan-status" data-status></div>
+    </article>
+
+  </div>
+</section>
+
+<section class="enterprise">
+  <div class="enterprise-inner">
+    <p><b>Larger operations, invoice billing, WhatsApp delivery or custom onboarding?</b> Enterprise terms are agreed directly with the Day Zero team and calibrated for your operation.</p>
+    <a class="btn-ghost" href="mailto:team@dayzero.energy?subject=Day%20Zero%20Enterprise%20Subscription">Talk to the team</a>
+  </div>
+</section>
+
+<section class="terms">
+  <div class="terms-inner">
+    <p id="vat-note">Naira prices include VAT at 7.5%. Subscriptions renew automatically at the end of each period and can be cancelled at any time; cancellation takes effect at the end of the period already paid for. Founding year annual prices apply to subscriptions started before 1 October 2026 and hold for that first year.</p>
+    <p>Card payments are processed by Flutterwave. Day Zero does not see or store your card details. We use your email address only to deliver the brief and manage your subscription, under Nigeria's data protection law. See our <a href="/privacy.html" style="color:white">privacy notice</a> and <a href="/terms.html" style="color:white">terms</a>.</p>
+  </div>
+</section>
+
+<section class="sample">
+  <div class="sample-inner">
+    <div>
+      <div class="section-label" style="color:var(--gold)">What arrives</div>
+      <h2>Written to be read in four minutes, before the shift starts.</h2>
+      <p>Every brief follows the same frame, so your team learns to read it fast and your HSE file builds a consistent record. Nothing reaches a subscriber until the validating engineer has ruled on it.</p>
+      <p style="margin-top:1rem"><a href="/#subscribe" style="color:var(--gold)">Read today's brief on the homepage first</a> if you would like to see one before subscribing.</p>
+    </div>
+    <div class="frame" aria-label="Structure of every brief">
+      <div class="frame-label">What happened</div><p>The incident, where, when, and what it cost.</p>
+      <div class="frame-label">Immediate cause</div><p>The failure that released the energy.</p>
+      <div class="frame-label">Contributing factors</div><p>What let that failure reach people.</p>
+      <div class="frame-label">Root cause</div><p>The management system gap underneath it.</p>
+      <div class="frame-label">Lesson</div><p>What the industry should take from it.</p>
+      <div class="frame-label">Today's action</div><p>One thing your team can do before the next shift.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><a href="/">Home</a>·<a href="/privacy.html">Privacy</a>·<a href="/terms.html">Terms</a>·<a href="mailto:team@dayzero.energy">team@dayzero.energy</a></div>
+  <div class="note">Day Zero provides advisory safety intelligence. It does not replace your own HSE management system, risk assessments, or statutory duties.</div>
+  <div class="note">© Day Zero Energy Limited</div>
+</footer>
+
+<script>
+(function () {
+  var API = "https://api.dayzero.energy/checkout";
+  var FOUNDING_UNTIL = new Date("2026-10-01T00:00:00+01:00");
+  var founding = new Date() < FOUNDING_UNTIL;
+
+  // Mirrors the backend price book. The server decides the real price; this is display only.
+  var PRICES = {
+    individual: {
+      NGN: { monthly: 15000,  annual_list: 150000, annual_founding: 100000 },
+      USD: { monthly: 15,     annual_list: 150,    annual_founding: 100 }
+    },
+    corporate: {
+      NGN: { monthly: 50000,  annual_list: 500000, annual_founding: 400000 },
+      USD: { monthly: 50,     annual_list: 500,    annual_founding: 400 }
+    }
+  };
+
+  var state = { currency: "NGN", interval: "annual" };
+
+  function money(n, cur) {
+    var sym = cur === "NGN" ? "\u20A6" : "$";
+    return sym + n.toLocaleString("en-US");
+  }
+
+  function render() {
+    document.querySelectorAll("[data-cur]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.cur === state.currency));
+    });
+    document.querySelectorAll("[data-int]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.dataset.int === state.interval));
+    });
+    document.getElementById("founding-badge").hidden = !(founding && state.interval === "annual");
+    document.getElementById("vat-note").style.display = state.currency === "NGN" ? "" : "none";
+
+    document.querySelectorAll(".price-card").forEach(function (card) {
+      var tier = card.dataset.tier;
+      var p = PRICES[tier][state.currency];
+      var priceEl = card.querySelector("[data-price]");
+      var wasEl = card.querySelector("[data-was]");
+      if (state.interval === "monthly") {
+        priceEl.innerHTML = money(p.monthly, state.currency) + "<small>/ month</small>";
+        wasEl.innerHTML = "";
+      } else if (founding) {
+        priceEl.innerHTML = money(p.annual_founding, state.currency) + "<small>/ year</small>";
+        wasEl.innerHTML = "<s>" + money(p.annual_list, state.currency) + "</s> <b>Founding year</b>";
+      } else {
+        priceEl.innerHTML = money(p.annual_list, state.currency) + "<small>/ year</small>";
+        wasEl.innerHTML = "";
+      }
+    });
+  }
+
+  document.querySelectorAll("[data-cur]").forEach(function (b) {
+    b.addEventListener("click", function () { state.currency = b.dataset.cur; render(); });
+  });
+  document.querySelectorAll("[data-int]").forEach(function (b) {
+    b.addEventListener("click", function () { state.interval = b.dataset.int; render(); });
+  });
+
+  var emailInput = document.getElementById("buyer-email");
+  var emailHelp = document.getElementById("email-help");
+
+  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  document.querySelectorAll("[data-buy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var card = btn.closest(".price-card");
+      var statusEl = card.querySelector("[data-status]");
+      var email = emailInput.value.trim().toLowerCase();
+
+      if (!validEmail(email)) {
+        emailInput.classList.remove("shake"); void emailInput.offsetWidth; emailInput.classList.add("shake");
+        emailInput.focus();
+        emailHelp.textContent = "Enter the email address the brief should be sent to, then choose a plan.";
+        return;
+      }
+
+      btn.disabled = true;
+      var original = btn.textContent;
+      btn.textContent = "Preparing secure checkout\u2026";
+      statusEl.className = "plan-status";
+      statusEl.textContent = "";
+
+      fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, tier: card.dataset.tier, currency: state.currency, interval: state.interval })
+      })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
+      .then(function (res) {
+        if (res.ok && res.data && res.data.link) {
+          window.location.href = res.data.link;
+          return;
+        }
+        throw new Error((res.data && res.data.error) || "Checkout could not be started.");
+      })
+      .catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = original;
+        statusEl.className = "plan-status err";
+        statusEl.textContent = err.message + " Please try again, or write to team@dayzero.energy.";
+      });
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
