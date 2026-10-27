@@ -54,10 +54,8 @@ h1 em{color:var(--crimson);font-style:italic;font-weight:500}
 .btn-primary:hover{background:var(--navy2)}
 .btn-ghost{background:transparent;color:var(--navy);border:1px solid rgba(13,34,65,0.35)}
 .btn-ghost:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-.deadline{font-family:var(--sans);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
-          margin-top:44px;padding:14px 0;font-size:13.5px;line-height:1.6;color:var(--muted);
-          display:flex;gap:9px;flex-wrap:wrap;align-items:baseline}
-.deadline b{color:var(--crimson);font-weight:600;font-size:15px;letter-spacing:0.02em}
+
+
 
 /* sections */
 section{padding:52px 0 8px}
@@ -157,10 +155,6 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
       <a href="#request" class="btn btn-primary">Request an Estimate</a>
       <a href="../assets/decommissioning-cost-estimate-specimen.pdf" class="btn btn-ghost">View a Specimen</a>
     </div>
-    <div class="deadline">
-      <b id="days">&nbsp;</b>
-      <span>to the 9 September 2026 submission deadline for existing licences and leases, under Regulation 3(5)(c) of S.I. 15 of 2026.</span>
-    </div>
   </div>
 
   <section>
@@ -252,15 +246,6 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
 <footer>
   Day Zero Energy Limited · RC 9610309 · <a href="mailto:team@dayzero.energy">team@dayzero.energy</a> · <a href="https://dayzero.energy">dayzero.energy</a>
 </footer>
-
-<script>
-(function(){
-  var d = Math.ceil((new Date(2026,8,9) - new Date()) / 86400000);
-  var el = document.getElementById('days');
-  el.textContent = d > 0 ? (d + (d === 1 ? ' day' : ' days')) : 'Passed';
-  if (d <= 0) { el.nextElementSibling.textContent = 'The 9 September 2026 submission deadline under Regulation 3(5)(c) of S.I. 15 of 2026 has passed.'; }
-})();
-</script>
 <script>(function(){var b=document.getElementById("dzcopy");if(!b)return;b.addEventListener("click",function(){var t=document.getElementById("dzmail").textContent;function done(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1800)}try{navigator.clipboard.writeText(t).then(done,function(){})}catch(e){}});})();</script>
 </body>
 </html>
