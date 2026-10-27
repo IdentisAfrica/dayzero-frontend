@@ -133,6 +133,7 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
   table.extract{font-size:12px}
   table.extract td,table.extract th{padding:9px 10px}
 }
+.fallback{font-family:var(--sans);font-size:14px;line-height:1.6;margin:14px 0 0;max-width:46em}.fallback code{font-size:15px;font-weight:600;user-select:all}.fallback span{display:block;margin-top:6px;opacity:.8}.copybtn{margin-left:10px;font:inherit;font-size:12px;padding:3px 10px;cursor:pointer;border:1px solid var(--rule);background:transparent;border-radius:3px}.copybtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
 </style>
 </head>
 <body>
@@ -237,6 +238,7 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
     <h3>Send the register. Get the number, and the list of what it leaves out.</h3>
     <p>Attach whatever asset documentation you hold. We will confirm what we can price from it before any work begins.</p>
     <a class="btn btn-gold" href="mailto:team@dayzero.energy?subject=Screening-level%20D%26A%20cost%20estimate&body=Asset%20or%20field%3A%20%0AOperator%3A%20%0ATerrain%20(onshore%20or%20offshore)%3A%20%0A%0AAsset%20documentation%20attached.">Request an Estimate</a>
+          <p class="fallback">Or write to <code id="dzmail">team@dayzero.energy</code><button type="button" id="dzcopy" class="copybtn">Copy</button><br><span>Tell us the asset or field, the operator, and whether it is onshore or offshore. Attach the asset register, the latest annual report and any filed decommissioning plan.</span></p>
     <small>Or email team@dayzero.energy directly, with your asset documentation attached.</small>
   </div>
 </div>
@@ -259,5 +261,6 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
   if (d <= 0) { el.nextElementSibling.textContent = 'The 9 September 2026 submission deadline under Regulation 3(5)(c) of S.I. 15 of 2026 has passed.'; }
 })();
 </script>
+<script>(function(){var b=document.getElementById("dzcopy");if(!b)return;b.addEventListener("click",function(){var t=document.getElementById("dzmail").textContent;function done(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1800)}try{navigator.clipboard.writeText(t).then(done,function(){})}catch(e){}});})();</script>
 </body>
 </html>
