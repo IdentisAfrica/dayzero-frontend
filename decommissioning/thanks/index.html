@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A screening-level decommissioning and abandonment cost estimate for your asset, priced obligation by obligation against S.I. 15 of 2026, with every unpriceable obligation disclosed rather than hidden.">
+<title>Request received · Decommissioning &amp; Abandonment Cost Estimates · Day Zero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D2241;--navy2:#16305A;--gold:#C9A227;--crimson:#A2172B;
+  --paper:#FCFBF8;--panel:#F4F2EB;--ink:#1B222E;--muted:#59606D;--rule:#E3E1D7;
+  --serif:'Lora',Georgia,'Times New Roman',serif;
+  --sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--serif);background:var(--paper);color:var(--ink);
+     font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+/* apparatus: nav, labels, tables, buttons */
+nav{padding:14px 32px;display:flex;align-items:center;justify-content:space-between;
+    border-bottom:3px solid var(--gold);position:sticky;top:0;background:var(--navy);z-index:50}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-mark{width:26px;height:26px;background:var(--gold);border-radius:2px;display:flex;align-items:center;justify-content:center}
+.nav-mark svg{width:13px;height:13px;fill:var(--navy)}
+.nav-name{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:0.09em;color:#fff}
+.nav-name span{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:26px}
+.nav-link{font-family:var(--sans);color:#C3CAD8;text-decoration:none;font-size:13.5px;letter-spacing:0.01em}
+.nav-link:hover{color:#fff}
+.nav-cta{font-family:var(--sans);background:var(--gold);color:var(--navy);padding:8px 17px;border-radius:2px;
+         font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none}
+.nav-cta:hover{background:#B8931F}
+
+.wrap{max-width:730px;margin:0 auto;padding:0 32px}
+
+/* hero */
+.hero{padding:76px 0 12px}
+.eyebrow{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+         color:var(--crimson);display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.eyebrow::before{content:'';width:30px;height:2px;background:var(--gold)}
+h1{font-family:var(--serif);font-size:clamp(2.15rem,4.6vw,3.05rem);font-weight:600;line-height:1.16;
+   color:var(--navy);letter-spacing:-0.015em;margin-bottom:24px;max-width:16ch}
+h1 em{color:var(--crimson);font-style:italic;font-weight:500}
+.deck{font-size:1.16rem;line-height:1.68;color:var(--muted);max-width:60ch;margin-bottom:34px}
+.deck strong{color:var(--ink);font-weight:600}
+.btnrow{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--sans);display:inline-block;padding:14px 30px;border-radius:2px;font-size:13.5px;
+     font-weight:600;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background .15s,color .15s}
+.btn-primary{background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(13,34,65,0.16)}
+.btn-primary:hover{background:var(--navy2)}
+.btn-ghost{background:transparent;color:var(--navy);border:1px solid rgba(13,34,65,0.35)}
+.btn-ghost:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+
+
+/* sections */
+section{padding:52px 0 8px}
+h2{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;
+   color:var(--navy);margin-bottom:20px;padding-bottom:9px;border-bottom:1px solid var(--rule)}
+h3{font-family:var(--serif);font-size:1.5rem;font-weight:600;color:var(--navy);line-height:1.32;
+   letter-spacing:-0.01em;margin-bottom:16px;max-width:32ch}
+p{font-size:1.02rem;color:var(--muted);line-height:1.8;margin-bottom:18px;max-width:66ch}
+p strong{color:var(--ink);font-weight:600}
+p.last{margin-bottom:0}
+
+/* the extract table: reads as a cost schedule, not a web table */
+table.extract{width:100%;border-collapse:collapse;font-family:var(--sans);font-size:13px;background:#fff;
+              border:1px solid var(--rule);margin:6px 0 12px;font-variant-numeric:tabular-nums}
+table.extract th{background:var(--panel);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:0.14em;
+                 text-transform:uppercase;text-align:left;padding:11px 13px;border-bottom:1px solid var(--rule)}
+table.extract th.num,table.extract td.num{text-align:right}
+table.extract td{padding:11px 13px;border-bottom:1px solid #F1EFE8;color:var(--ink);line-height:1.45}
+table.extract tbody tr:nth-child(even) td{background:#FCFBF8}
+table.extract td.ref{font-size:12px;letter-spacing:0.08em;color:var(--muted);white-space:nowrap}
+table.extract tr.total td{border-top:2px solid var(--navy);border-bottom:none;font-weight:600;background:var(--panel)}
+table.extract tr.gap td{background:rgba(162,23,43,0.045);color:var(--crimson);border-bottom:none;font-size:12.5px}
+.tnote{font-family:var(--sans);font-size:12px;color:var(--muted);letter-spacing:0.01em}
+
+/* blocks and lists */
+.card{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--navy);
+      border-radius:2px;padding:26px 30px;margin-bottom:14px}
+.card p:last-child{margin-bottom:0}
+ul{list-style:none}
+li{font-size:1.01rem;color:var(--muted);line-height:1.75;padding-left:24px;position:relative;margin-bottom:13px;max-width:64ch}
+li::before{content:'';position:absolute;left:0;top:13px;width:10px;height:2px;background:var(--gold)}
+li strong{color:var(--ink);font-weight:600}
+li:last-child{margin-bottom:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.grid2 li{max-width:none}
+.steps{counter-reset:s;margin-top:4px}
+.steps li{counter-increment:s;padding-left:52px;margin-bottom:26px;min-height:34px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:32px;height:32px;background:var(--navy);
+                  border-radius:50%;color:#fff;font-family:var(--sans);font-size:14px;font-weight:600;
+                  display:flex;align-items:center;justify-content:center}
+.steps li b{display:block;font-family:var(--sans);color:var(--navy);font-size:12px;font-weight:600;
+            letter-spacing:0.16em;text-transform:uppercase;margin-bottom:5px}
+
+.specimen{display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;background:#fff;
+          border:1px solid var(--rule);border-top:3px solid var(--gold);padding:26px 30px;
+          box-shadow:0 1px 4px rgba(13,34,65,0.05)}
+.specimen div{flex:1;min-width:260px}
+.specimen p{margin:0;font-size:1rem;max-width:none}
+
+/* closing band */
+.ctaband{background:var(--navy);color:#fff;margin-top:56px;padding:66px 0}
+.ctaband h3{color:#fff;max-width:26ch;margin-bottom:14px}
+.ctaband p{color:#B9C2D2;max-width:54ch;margin-bottom:26px}
+.ctaband .btn-gold{background:var(--gold);color:var(--navy)}
+.ctaband .btn-gold:hover{background:#B8931F}
+.ctaband small{font-family:var(--sans);display:block;margin-top:20px;font-size:12.5px;color:#8C96A9;letter-spacing:0.01em}
+
+.limits{font-family:var(--sans);font-size:12.5px;color:var(--muted);line-height:1.85;padding:44px 0;max-width:74ch}
+footer{font-family:var(--sans);border-top:1px solid var(--rule);background:var(--panel);padding:30px;
+       text-align:center;font-size:12.5px;color:var(--muted);letter-spacing:0.01em}
+footer a{color:var(--navy);text-decoration:none;font-weight:500}
+
+@media(max-width:640px){
+  body{font-size:16px}
+  nav{padding:12px 20px}
+  .nav-right{gap:16px}
+  .wrap{padding:0 22px}
+  .hero{padding:48px 0 8px}
+  h1{max-width:none}
+  .grid2{grid-template-columns:1fr;gap:0}
+  .btn{width:100%;text-align:center}
+  .ctaband{padding:48px 0}
+  table.extract{font-size:12px}
+  table.extract td,table.extract th{padding:9px 10px}
+}
+.fallback{font-family:var(--sans);font-size:14px;line-height:1.6;margin:14px 0 0;max-width:46em}.fallback code{font-size:15px;font-weight:600;user-select:all}.fallback span{display:block;margin-top:6px;opacity:.8}.copybtn{margin-left:10px;font:inherit;font-size:12px;padding:3px 10px;cursor:pointer;border:1px solid var(--rule);background:transparent;border-radius:3px}.copybtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* Request an Estimate form */
+.estform{margin-top:28px;text-align:left}
+.estgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.estgrid label{display:flex;flex-direction:column;gap:6px;font-family:var(--sans);font-size:13px;letter-spacing:.02em;color:#C3CAD8}
+.estgrid label.wide{grid-column:1/-1}
+.estgrid input,.estgrid select,.estgrid textarea{font-family:var(--sans);font-size:15px;padding:10px 12px;border:1px solid rgba(255,255,255,.18);border-radius:2px;background:rgba(255,255,255,.06);color:#fff}
+.estgrid input::placeholder,.estgrid textarea::placeholder{color:#7f8aa0}
+.estgrid select option{color:var(--ink)}
+.estgrid input[type=file]{padding:8px;font-size:13px}
+.estgrid .hint{font-size:12px;color:#8f99ad;letter-spacing:0}
+.estactions{display:flex;align-items:center;gap:18px;margin:22px 0 14px;flex-wrap:wrap}
+.eststatus{font-family:var(--sans);font-size:14px;color:var(--gold)}
+.estform small{display:block;font-family:var(--sans);font-size:12.5px;color:#8f99ad}
+.estform small a{color:#C3CAD8}
+@media(max-width:700px){.estgrid{grid-template-columns:1fr}}
+</style>
+<meta name="robots" content="noindex"></head>
+<body>
+<nav>
+  <a href="https://dayzero.energy" class="nav-brand">
+    <span class="nav-mark"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg></span>
+    <span class="nav-name">DAY ZERO<span> · HSE</span></span>
+  </a>
+  <div class="nav-right">
+    <a href="https://dayzero.energy" class="nav-link">Home</a>
+    <a href="#request" class="nav-cta">Request Estimate</a>
+  </div>
+</nav>
+<div class="wrap" style="padding:72px 0 96px;max-width:720px">
+  <div class="eyebrow">Request received</div>
+  <h1 style="font-size:40px;line-height:1.1;color:var(--navy);margin-bottom:20px">Thank you. Your request is with the team.</h1>
+  <p style="font-size:18px;line-height:1.6;color:var(--muted)">Your reference is <strong id="ref" style="color:var(--navy)"></strong>. An acknowledgement has gone to the email you gave. A member of the Day Zero team will confirm within two working days what can be priced from the documentation supplied, and what else would be needed, before any work begins.</p>
+  <p style="font-size:16px;line-height:1.6;color:var(--muted);margin-top:16px">Need to send more documents or ask for an NDA first? Reply to the acknowledgement email, or write to <a href="mailto:team@dayzero.energy" style="color:var(--navy)">team@dayzero.energy</a> quoting your reference.</p>
+  <p style="margin-top:32px"><a class="btn btn-gold" href="/decommissioning/">Back to the service page</a></p>
+</div>
+<footer>
+  Day Zero Energy Limited · RC 9610309 · <a href="mailto:team@dayzero.energy">team@dayzero.energy</a> · <a href="https://dayzero.energy">dayzero.energy</a>
+</footer>
+<script>var r=new URLSearchParams(location.search).get('ref');document.getElementById('ref').textContent=r||'on its way by email';</script>
+</body>
+</html>

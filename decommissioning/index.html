@@ -132,6 +132,22 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
   table.extract td,table.extract th{padding:9px 10px}
 }
 .fallback{font-family:var(--sans);font-size:14px;line-height:1.6;margin:14px 0 0;max-width:46em}.fallback code{font-size:15px;font-weight:600;user-select:all}.fallback span{display:block;margin-top:6px;opacity:.8}.copybtn{margin-left:10px;font:inherit;font-size:12px;padding:3px 10px;cursor:pointer;border:1px solid var(--rule);background:transparent;border-radius:3px}.copybtn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* Request an Estimate form */
+.estform{margin-top:28px;text-align:left}
+.estgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px}
+.estgrid label{display:flex;flex-direction:column;gap:6px;font-family:var(--sans);font-size:13px;letter-spacing:.02em;color:#C3CAD8}
+.estgrid label.wide{grid-column:1/-1}
+.estgrid input,.estgrid select,.estgrid textarea{font-family:var(--sans);font-size:15px;padding:10px 12px;border:1px solid rgba(255,255,255,.18);border-radius:2px;background:rgba(255,255,255,.06);color:#fff}
+.estgrid input::placeholder,.estgrid textarea::placeholder{color:#7f8aa0}
+.estgrid select option{color:var(--ink)}
+.estgrid input[type=file]{padding:8px;font-size:13px}
+.estgrid .hint{font-size:12px;color:#8f99ad;letter-spacing:0}
+.estactions{display:flex;align-items:center;gap:18px;margin:22px 0 14px;flex-wrap:wrap}
+.eststatus{font-family:var(--sans);font-size:14px;color:var(--gold)}
+.estform small{display:block;font-family:var(--sans);font-size:12.5px;color:#8f99ad}
+.estform small a{color:#C3CAD8}
+@media(max-width:700px){.estgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -230,10 +246,26 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
 <div class="ctaband" id="request">
   <div class="wrap">
     <h3>Send the register. Get the number, and the list of what it leaves out.</h3>
-    <p>Attach whatever asset documentation you hold. We will confirm what we can price from it before any work begins.</p>
-    <a class="btn btn-gold" href="mailto:team@dayzero.energy?subject=Screening-level%20D%26A%20cost%20estimate&body=Asset%20or%20field%3A%20%0AOperator%3A%20%0ATerrain%20(onshore%20or%20offshore)%3A%20%0A%0AAsset%20documentation%20attached.">Request an Estimate</a>
-          <p class="fallback">Or write to <code id="dzmail">team@dayzero.energy</code><button type="button" id="dzcopy" class="copybtn">Copy</button><br><span>Tell us the asset or field, the operator, and whether it is onshore or offshore. Attach the asset register, the latest annual report and any filed decommissioning plan.</span></p>
-    <small>Or email team@dayzero.energy directly, with your asset documentation attached.</small>
+    <p>Tell us the asset and attach whatever documentation you hold. We confirm what can be priced from it before any work begins.</p>
+    <form class="estform" id="estform" enctype="multipart/form-data" novalidate>
+      <div class="estgrid">
+        <label>Operator <input name="operator" required maxlength="200" placeholder="Company name"></label>
+        <label>Asset or field <input name="asset" required maxlength="200" placeholder="Field, OML or facility"></label>
+        <label>Terrain <select name="terrain" required><option value="">Choose</option><option>Onshore</option><option>Swamp</option><option>Shallow offshore</option><option>Deepwater</option><option>Mixed</option></select></label>
+        <label>Asset class <select name="asset_class"><option value="">Not sure</option><option>Fixed platform</option><option>FPSO</option><option>Subsea tieback</option><option>Flowstation</option><option>Wellhead cluster</option><option>Pipeline system</option><option>Gas plant</option><option>Terminal</option><option>Other</option></select></label>
+        <label>Your name <input name="name" required maxlength="120"></label>
+        <label>Work email <input name="email" type="email" required maxlength="200"></label>
+        <label>Phone <input name="phone" maxlength="40" placeholder="Optional"></label>
+        <label>Asset documentation <input name="document" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.csv,.zip"><span class="hint">Asset register, latest annual report, filed decommissioning plan. One file, up to 10 MB. More can follow by email.</span></label>
+        <label class="wide">Anything we should know <textarea name="notes" rows="3" maxlength="4000" placeholder="Timeline, what you need the figure for, whether you want an NDA first"></textarea></label>
+        <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      </div>
+      <div class="estactions">
+        <button class="btn btn-gold" type="submit" id="estsubmit">Request an Estimate</button>
+        <span class="eststatus" id="eststatus" role="status"></span>
+      </div>
+      <small>Or email <a href="mailto:team@dayzero.energy">team@dayzero.energy</a> directly with your documentation attached. Everything sent is held in confidence and used only to prepare your estimate.</small>
+    </form>
   </div>
 </div>
 
@@ -247,5 +279,24 @@ footer a{color:var(--navy);text-decoration:none;font-weight:500}
   Day Zero Energy Limited · RC 9610309 · <a href="mailto:team@dayzero.energy">team@dayzero.energy</a> · <a href="https://dayzero.energy">dayzero.energy</a>
 </footer>
 <script>(function(){var b=document.getElementById("dzcopy");if(!b)return;b.addEventListener("click",function(){var t=document.getElementById("dzmail").textContent;function done(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1800)}try{navigator.clipboard.writeText(t).then(done,function(){})}catch(e){}});})();</script>
+
+<script>
+(function(){
+  var f=document.getElementById('estform'); if(!f) return;
+  var st=document.getElementById('eststatus'), b=document.getElementById('estsubmit');
+  f.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if(!f.checkValidity()){ f.reportValidity(); return; }
+    b.disabled=true; st.textContent='Sending\u2026';
+    try{
+      var r=await fetch('https://api.dayzero.energy/estimate/request',{method:'POST',body:new FormData(f)});
+      var j=await r.json().catch(function(){return {}});
+      if(r.ok && j.ok){ location.href='/decommissioning/thanks/?ref='+encodeURIComponent(j.ref||''); return; }
+      st.textContent=j.error||'Something went wrong. Please email team@dayzero.energy.';
+    }catch(err){ st.textContent='Could not reach the server. Please email team@dayzero.energy.'; }
+    b.disabled=false;
+  });
+})();
+</script>
 </body>
 </html>
